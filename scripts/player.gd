@@ -2,8 +2,8 @@ class_name Player extends CharacterBody3D
 
 
 var BASE_SPEED: float = 15.0
-var BASE_ACCELERATION: float = 13 * BASE_SPEED
-var BASE_DECELERATION: float = 10 * BASE_SPEED
+var BASE_ACCELERATION: float = 8 * BASE_SPEED
+var BASE_DECELERATION: float = 11 * BASE_SPEED
 var AIR_ACC_MULTIPLIER: float = 0.7
 const JUMP_VELOCITY: float = 25
 var SENSITIVITY: float = 0.002
