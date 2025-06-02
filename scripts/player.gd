@@ -5,7 +5,7 @@ var BASE_SPEED: float = 15.0
 var BASE_ACCELERATION: float = 8 * BASE_SPEED
 var BASE_DECELERATION: float = 11 * BASE_SPEED
 var AIR_ACC_MULTIPLIER: float = 0.7
-const JUMP_VELOCITY: float = 25
+const JUMP_VELOCITY: float = 13
 var SENSITIVITY: float = 0.002
 
 @onready var head: Node3D = $Head
@@ -31,8 +31,7 @@ func _input(_event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("kick"):
 		$Head/Camera3D/Leg/AnimationPlayer.play(&"ArmatureAction")
-
-
+	
 ## Moves the player
 func handle_movement(max_speed: float, acceleration: float, deceleration: float, delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -48,6 +47,6 @@ func handle_movement(max_speed: float, acceleration: float, deceleration: float,
 
 	if not self.is_on_floor():
 		var descent_mult: float = 1.0 if velocity.y < 0 else 1.2
-		velocity += Global.GRAVITY * descent_mult
+		velocity += Global.GRAVITY * descent_mult * delta
 		
 	self.move_and_slide()
