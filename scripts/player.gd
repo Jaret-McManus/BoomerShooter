@@ -31,8 +31,7 @@ func _input(_event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("kick"):
 		$Head/Camera3D/Leg/AnimationPlayer.play(&"ArmatureAction")
-
-
+	
 ## Moves the player
 func handle_movement(max_speed: float, acceleration: float, deceleration: float, delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
