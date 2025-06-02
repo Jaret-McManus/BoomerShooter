@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c08qcm5drvgqp"]
 
 [ext_resource type="Texture2D" uid="uid://c6l30u7marrou" path="res://textures/enemies/Half-Life.png" id="1_ghv5c"]
-[ext_resource type="Script" uid="uid://cd3odxkjvfuew" path="res://scenes/test_enemy.gd" id="1_mkyue"]
+[ext_resource type="Script" uid="uid://cd3odxkjvfuew" path="res://scripts/test_enemy.gd" id="1_mkyue"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yikbh"]
 
