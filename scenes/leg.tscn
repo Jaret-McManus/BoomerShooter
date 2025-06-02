@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://do40xm3kfh615"]
+
+[ext_resource type="PackedScene" uid="uid://cgkix84ldp6sp" path="res://models/leg.glb" id="1_thk1m"]
+
+[node name="leg" instance=ExtResource("1_thk1m")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(0.743751, 8.68102, -5.16904)
+bones/0/rotation = Quaternion(0.54808, -0.193103, -0.812281, 0.0501791)
+bones/1/rotation = Quaternion(0.213167, 0.546517, -0.158983, 0.794105)
+bones/2/rotation = Quaternion(-0.745961, 0.395461, 0.204011, 0.495512)
