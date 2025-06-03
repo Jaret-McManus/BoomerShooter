@@ -5,7 +5,12 @@ const JUMP_VELOCITY = 4.5
 
 @export var SPRITE : Sprite3D
 
+# 0 - 7 for the 8 directions to be animated
 var current_sprite_direction : int = 0
+
+
+func _on_died() -> void:
+	queue_free()
 
 
 func _physics_process(delta: float) -> void:
@@ -50,10 +55,9 @@ func bilboard_sprite() -> void:
 
 
 func set_sprite_direction() -> void:
-	#set the sprite frame 0 - 7 based on the sprites y rotation
+	# set the sprite frame 0 - 7 based on the sprites y rotation
 	var sprite_direction : int = round(SPRITE.rotation_degrees.y / 45.0)
-	
-	#set 8 to 0 since 360 and 0 are the same direction
+	# set 8 to 0 since 360 and 0 are the same direction
 	if sprite_direction == 8: sprite_direction = 0
 	
 	#if the sprite direction changes, apply the new sprite direction
