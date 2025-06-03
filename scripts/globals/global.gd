@@ -1,3 +1,5 @@
 extends Node
 
 const GRAVITY: Vector3 = Vector3.DOWN * 35
+var gui_manager : GUIManager
+var player : CharacterBody3D

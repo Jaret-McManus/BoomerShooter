@@ -11,8 +11,9 @@ var SENSITIVITY: float = 0.002
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 
+func _ready() -> void:
+	Global.player = self
 # --- MOVED THIS TO THE SCREEN MANAGER SCRIPT ---#
-#func _ready() -> void:
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
