@@ -11,29 +11,40 @@ var SENSITIVITY: float = 0.002
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 
-func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+# --- MOVED THIS TO THE SCREEN MANAGER SCRIPT ---#
+#func _ready() -> void:
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	## Moves the camera with mouse movement
 	if event is InputEventMouseMotion:
 		$Head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, -PI/2 * 0.98, PI/2 * 0.98)
 
 
-func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed(&"esc_mouse"):
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		else:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-	if Input.is_action_just_pressed("kick"):
+func _input(event: InputEvent) -> void:
+	#this change isn't necessary, but idk if it might be faster than accessing Input class,
+	#you can change it back to your other way if that makes more sense to you
+	if event.is_action_pressed(&"kick"):
 		$Head/Camera3D/Leg/AnimationPlayer.play(&"ArmatureAction")
 	
+	# --- I MOVED THE MOUSE CAPTURE CODE TO SCREEN MANAGER SCRIPT --- #
+	#if Input.is_action_just_pressed(&"esc_mouse"):
+		#if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		#else:
+			#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#
+	#if Input.is_action_just_pressed("kick"):
+		#$Head/Camera3D/Leg/AnimationPlayer.play(&"ArmatureAction")
+
 ## Moves the player
 func handle_movement(max_speed: float, acceleration: float, deceleration: float, delta: float) -> void:
+	## the acceleration in the player movement might be too high, 
+	## 2 * BASE_ACCELERATION feels better for me but it might just be my bad computer
+	## I think the acceleration should be higher when changing direction to feel less floaty
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector(&"left", &"right", &"forward", &"backward")
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()

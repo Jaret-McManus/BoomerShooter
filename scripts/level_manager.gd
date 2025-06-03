@@ -6,9 +6,6 @@ const LEVEL_SCENES := {
 
 @export var LEVEL_VIEWPORT : SubViewport
 
-func _ready() -> void:
-	#just added until we have more levels and a main menu
-	load_level(LEVEL_SCENES["test_level"])
 
 func load_level(level_scene: PackedScene) -> void:
 	var level : Level = level_scene.instantiate()
