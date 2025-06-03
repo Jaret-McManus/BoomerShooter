@@ -12,7 +12,7 @@ class DebugRow extends HBoxContainer:
 	var value: Variant:
 		set(val):
 			value = val
-			value_lbl.text = val
+			value_lbl.text = str(val)
 	
 	static func create(debug_name: StringName, val: Variant) -> DebugRow:
 		var debug_row := DebugRow.new()
@@ -21,7 +21,7 @@ class DebugRow extends HBoxContainer:
 		debug_row.value_lbl = Label.new()
 		
 		debug_row.name_lbl.text = "%s:" % debug_name
-		debug_row.value_lbl.text = val
+		debug_row.value_lbl.text = str(val)
 		debug_row.value = val
 		
 		debug_row.add_child(debug_row.name_lbl)

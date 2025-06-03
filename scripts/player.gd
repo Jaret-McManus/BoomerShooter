@@ -51,6 +51,7 @@ func handle_movement(max_speed: float, acceleration: float, deceleration: float,
 		velocity += Global.GRAVITY * descent_mult * delta
 	
 	# Camera tilt
-	
-	
+	var right := velocity.dot(self.basis.x)
+	Debug.update_debug(&"Right", right)
+		
 	self.move_and_slide()
