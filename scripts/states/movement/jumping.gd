@@ -7,7 +7,6 @@ extends PlayerState
 
 var min_y = 0.0
 func enter() -> void:
-	print("Jump state entered!")
 	player.velocity.y += JUMP_VEL
 
 

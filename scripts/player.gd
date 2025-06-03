@@ -7,7 +7,7 @@ var BASE_ACCELERATION: float = 8 * BASE_SPEED
 var BASE_DECELERATION: float = 11 * BASE_SPEED
 var AIR_ACC_MULTIPLIER: float = 0.7
 const JUMP_VELOCITY: float = 13
-var SENSITIVITY: float = 0.002
+var SENSITIVITY: float = 0.0020
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
@@ -15,8 +15,6 @@ var SENSITIVITY: float = 0.002
 
 func _ready() -> void:
 	Global.player = self
-# --- MOVED THIS TO THE SCREEN MANAGER SCRIPT ---#
-	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -28,20 +26,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	#this change isn't necessary, but idk if it might be faster than accessing Input class,
-	#you can change it back to your other way if that makes more sense to you
 	if event.is_action_pressed(&"kick"):
 		$Head/Camera3D/Leg/AnimationPlayer.play(&"ArmatureAction")
-	
-	# --- I MOVED THE MOUSE CAPTURE CODE TO SCREEN MANAGER SCRIPT --- #
-	#if Input.is_action_just_pressed(&"esc_mouse"):
-		#if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		#else:
-			#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	#
-	#if Input.is_action_just_pressed("kick"):
-		#$Head/Camera3D/Leg/AnimationPlayer.play(&"ArmatureAction")
 
 ## Moves the player
 func handle_movement(max_speed: float, acceleration: float, deceleration: float, delta: float) -> void:
@@ -55,12 +41,16 @@ func handle_movement(max_speed: float, acceleration: float, deceleration: float,
 		velocity.x = velocity.move_toward(direction * max_speed, acceleration * delta).x
 		velocity.z = velocity.move_toward(direction * max_speed, acceleration * delta).z
 	else:
-		var weight = 1 - exp(-deceleration * delta)
+		var weight := 1 - exp(-deceleration) * delta
 		velocity.x = velocity.move_toward(direction * max_speed, weight).x
 		velocity.z = velocity.move_toward(direction * max_speed, weight).z
 
+	# Gravity
 	if not self.is_on_floor():
 		var descent_mult: float = 1.0 if velocity.y < 0 else 1.2
 		velocity += Global.GRAVITY * descent_mult * delta
-		
+	
+	# Camera tilt
+	
+	
 	self.move_and_slide()
