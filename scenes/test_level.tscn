@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cqlluj3wi52eo" path="res://scripts/level.gd" id="1_j6w7d"]
 [ext_resource type="PackedScene" uid="uid://b6sy1efn0vy1h" path="res://scenes/player.tscn" id="1_paw1w"]
-[ext_resource type="Texture2D" uid="uid://do1iqy0bn8a21" path="res://textures/dark/texture_13.png" id="2_j6w7d"]
+[ext_resource type="Material" uid="uid://ddw5fqewtwjy6" path="res://materials/dark_material.tres" id="4_qcd3b"]
+[ext_resource type="MeshLibrary" uid="uid://bw4ffxdg61ou" path="res://meshes/wall_mesh_lib.tres" id="4_tmr53"]
 [ext_resource type="PackedScene" uid="uid://c08qcm5drvgqp" path="res://scenes/test_enemy.tscn" id="4_x4b8f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
@@ -18,17 +19,9 @@ sky = SubResource("Sky_0wfyh")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyhfs"]
-shading_mode = 2
-diffuse_mode = 1
-specular_mode = 2
-albedo_texture = ExtResource("2_j6w7d")
-uv1_scale = Vector3(0.5, 0.5, 0.5)
-uv1_triplanar = true
-
 [sub_resource type="BoxMesh" id="BoxMesh_tbgi4"]
 lightmap_size_hint = Vector2i(391, 284)
-material = SubResource("StandardMaterial3D_jyhfs")
+material = ExtResource("4_qcd3b")
 size = Vector3(100, 0.89, 80)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tmr53"]
@@ -36,6 +29,13 @@ points = PackedVector3Array(-50, -0.445, -40, -50, 0.445, -40, 50, -0.445, -40, 
 
 [node name="TestLevel" type="Node3D"]
 script = ExtResource("1_j6w7d")
+
+[node name="GridMap" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.03078, 0, 0)
+mesh_library = ExtResource("4_tmr53")
+data = {
+"cells": PackedInt32Array(65532, 20, 524293, 65533, 20, 524291, 65534, 20, 524291, 65535, 20, 524291, 0, 20, 524291, 1, 20, 524291, 2, 20, 524291, 3, 20, 524291, 4, 20, 524291, 4, 21, 524291, 4, 22, 524291, 4, 23, 524291, 4, 24, 524291, 4, 25, 524291, 3, 25, 524291, 2, 25, 524291, 1, 26, 524291, 0, 26, 524291, 65535, 26, 524291, 65534, 26, 524291, 65534, 27, 524291, 65533, 27, 524291, 65533, 26, 524291, 65533, 25, 524291, 65533, 24, 524291, 65533, 23, 524291, 65533, 22, 524291, 65532, 22, 524293, 65532, 21, 524293, 65533, 21, 524291, 65534, 21, 524291, 65535, 21, 524291, 0, 21, 524291, 1, 21, 524291, 2, 21, 524291, 3, 21, 524291, 3, 22, 524291, 3, 23, 524291, 3, 24, 524291, 1, 25, 524291, 65532, 26, 524293, 65534, 25, 524291, 65535, 25, 524291, 0, 25, 524291, 0, 24, 524291, 65535, 24, 524291, 65534, 24, 524291, 65534, 23, 524291, 65534, 22, 524291, 1, 22, 524291, 2, 22, 524291, 0, 22, 524291, 65535, 22, 524291, 65535, 23, 524291, 0, 23, 524291, 1, 24, 524291, 2, 24, 524291, 1, 23, 524291, 2, 23, 524291, 5, 25, 524293, 5, 24, 524293, 5, 23, 524293, 5, 22, 524293, 5, 21, 524293, 5, 20, 524293, 5, 29, 524293, 5, 28, 524293, 5, 27, 524293, 5, 26, 524293, 65532, 25, 524293, 65532, 24, 524293, 65532, 23, 524293, 65532, 27, 524293, 65535, 27, 524291, 0, 27, 524291, 1, 27, 524291, 2, 27, 524291, 3, 27, 524291, 3, 26, 524291, 4, 26, 524291, 4, 27, 524291, 4, 28, 524291, 4, 29, 524291, 3, 29, 524291, 2, 29, 524291, 1, 29, 524291, 0, 29, 524291, 65535, 29, 524291, 65534, 29, 524291, 65534, 28, 524291, 65533, 28, 524291, 65533, 29, 524291, 65535, 28, 524291, 0, 28, 524291, 1, 28, 524291, 2, 28, 524291, 3, 28, 524291, 2, 26, 524291, 65532, 28, 524293, 65532, 29, 524293, 65531, 25, 524293, 65531, 24, 524293, 65531, 23, 524293, 65531, 22, 524293, 65531, 21, 524293, 65531, 20, 524293, 65531, 26, 524293, 65531, 27, 524293, 7, 20, 524293, 8, 20, 524293, 9, 20, 524293, 10, 20, 524293, 11, 20, 524293, 12, 20, 524293, 6, 20, 524293)
+}
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
