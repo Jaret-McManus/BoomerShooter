@@ -1,4 +1,5 @@
-class_name Player extends CharacterBody3D
+class_name Player
+extends CharacterBody3D
 
 
 var BASE_SPEED: float = 15.0
@@ -11,6 +12,7 @@ var SENSITIVITY: float = 0.002
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 
+
 func _ready() -> void:
 	Global.player = self
 # --- MOVED THIS TO THE SCREEN MANAGER SCRIPT ---#
@@ -20,7 +22,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	## Moves the camera with mouse movement
 	if event is InputEventMouseMotion:
-		$Head.rotate_y(-event.relative.x * SENSITIVITY)
+		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, -PI/2 * 0.98, PI/2 * 0.98)
 
