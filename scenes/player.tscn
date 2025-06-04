@@ -17,8 +17,11 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ur7pv"]
 radius = 0.501949
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "camera", "tilt_control")]
 script = ExtResource("1_qhqgy")
+head = NodePath("Head")
+camera = NodePath("Head/TiltControl/Camera3D")
+tilt_control = NodePath("Head/TiltControl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_qhqgy")
@@ -29,9 +32,11 @@ shape = SubResource("ConvexPolygonShape3D_dqkch")
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546005, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="TiltControl" type="Node3D" parent="Head"]
 
-[node name="Leg" parent="Head/Camera3D" instance=ExtResource("2_tuyoq")]
+[node name="Camera3D" type="Camera3D" parent="Head/TiltControl"]
+
+[node name="Leg" parent="Head/TiltControl/Camera3D" instance=ExtResource("2_tuyoq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, -0.5)
 
 [node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "initial_state")]

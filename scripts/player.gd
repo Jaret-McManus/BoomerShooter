@@ -23,8 +23,9 @@ var BASE_FOV := 75.0
 var TOP_FOV := BASE_FOV * 1.05
 var FOV_WEIGHT := 10.0
 
-@onready var head: Node3D = $Head
-@onready var camera: Camera3D = $Head/Camera3D
+@export var head: Node3D
+@export var camera: Camera3D
+@export var tilt_control: Node3D
 
 
 func _on_died() -> void:
@@ -40,12 +41,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
-		camera.rotation.x = clamp(camera.rotation.x, -PI/2 * 0.98, PI/2 * 0.98)
+		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"kick"):
-		$Head/Camera3D/Leg/AnimationPlayer.play(&"ArmatureAction")
+		$Head/TiltControl/Camera3D/Leg/AnimationPlayer.play(&"ArmatureAction")
 
 
 func _physics_process(_delta: float) -> void:
@@ -91,7 +92,7 @@ func handle_movement(max_speed: float, acceleration: float, deceleration: float,
 func movement_camera_effects(delta: float) -> void:
 	# Camera tilt
 	var right: float = velocity.dot(head.basis.x) / BASE_SPEED
-	camera.rotation.z = remap(-right, -1, 1, -self.CAMERA_TILT, self.CAMERA_TILT)
+	tilt_control.rotation.z = remap(-right, -1, 1, -self.CAMERA_TILT, self.CAMERA_TILT)
 	
 	## It might be better to have the FOV shift only when moving forward
 	## or have the FOV shift less
