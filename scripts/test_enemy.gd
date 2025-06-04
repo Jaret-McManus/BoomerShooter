@@ -3,8 +3,10 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+@export var ANIMATION_PLAYER : AnimationPlayer
 @export var SPRITE : Sprite3D
 
+var target : Player = null
 # 0 - 7 for the 8 directions to be animated
 var current_sprite_direction : int = 0
 
@@ -27,6 +29,7 @@ func apply_gravity(delta: float) -> void:
 
 
 func move_random_direction() -> void:
+	## need to rotate enemy based on movement direction
 	if randf() < 0.03:
 		if randf() > 0.5:
 			velocity.x += 3
@@ -39,6 +42,7 @@ func move_random_direction() -> void:
 			velocity.z -= 3
 	else:
 		velocity *= 0.8
+	
 
 
 #custom bilboard function to give us access to the 
@@ -62,4 +66,28 @@ func set_sprite_direction() -> void:
 	
 	#if the sprite direction changes, apply the new sprite direction
 	if sprite_direction == current_sprite_direction: return
+	Debug.update_debug(&"Sprite Direction", SPRITE.rotation_degrees.y)
+	Debug.update_debug(&"Sprite yRotation", sprite_direction)
 	current_sprite_direction = sprite_direction
+	set_animation_frames(&"walk")
+
+
+func set_animation_frames(animation_name: StringName) -> void:
+	#duplicate and replace animation library
+	var animation_library : AnimationLibrary = ANIMATION_PLAYER.get_animation_library(&"")
+	animation_library = animation_library.duplicate()
+	ANIMATION_PLAYER.remove_animation_library(&"")
+	ANIMATION_PLAYER.add_animation_library(&"", animation_library)
+	
+	#duplicate and replace animation
+	var animation : Animation = ANIMATION_PLAYER.get_animation(animation_name)
+	animation = animation.duplicate()
+	animation_library.remove_animation(animation_name)
+	animation_library.add_animation(animation_name, animation)
+	
+	#modify animation
+	var sprite_area : int = current_sprite_direction * 4
+	animation.track_set_key_value(0, 0, 0 + sprite_area)
+	animation.track_set_key_value(0, 1, 1 + sprite_area)
+	animation.track_set_key_value(0, 2, 2 + sprite_area)
+	animation.track_set_key_value(0, 3, 3 + sprite_area)
