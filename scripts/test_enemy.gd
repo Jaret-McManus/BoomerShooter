@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-func apply_gravity(delta) -> void:
+func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += Global.GRAVITY * delta
 

@@ -30,12 +30,36 @@ class DebugRow extends HBoxContainer:
 		return debug_row
 
 
-func update_debug(debug_name: StringName, value=null) -> void:
+func update_debug(debug_name: StringName, value: Variant = null) -> void:
 	if not panel: return 
 	
 	if debug_name in debug_dict:
 		var debug_row := debug_dict[debug_name]
 		debug_row.value = value
+	else:
+		var new_debug_row := DebugRow.create(debug_name, value)
+		debug_dict[debug_name] = new_debug_row
+		vbox.add_child(new_debug_row)
+
+
+func update_max_debug(debug_name: StringName, value: Variant = null) -> void:
+	if not panel: return 
+	
+	if debug_name in debug_dict:
+		var debug_row := debug_dict[debug_name]
+		debug_row.value = max(debug_row.value, value)
+	else:
+		var new_debug_row := DebugRow.create(debug_name, value)
+		debug_dict[debug_name] = new_debug_row
+		vbox.add_child(new_debug_row)
+
+
+func update_min_debug(debug_name: StringName, value: Variant = null) -> void:
+	if not panel: return 
+	
+	if debug_name in debug_dict:
+		var debug_row := debug_dict[debug_name]
+		debug_row.value = min(debug_row.value, value)
 	else:
 		var new_debug_row := DebugRow.create(debug_name, value)
 		debug_dict[debug_name] = new_debug_row

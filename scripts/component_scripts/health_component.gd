@@ -1,8 +1,10 @@
 class_name HealthComponent
 extends Node
 
+@warning_ignore("unused_signal")
 signal died
 signal stunned(stun_time: int)
+@warning_ignore("unused_signal")
 signal health_changed()
 
 @export var STUN_TIME : int = 0

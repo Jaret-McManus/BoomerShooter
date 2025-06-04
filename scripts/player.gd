@@ -1,15 +1,27 @@
 class_name Player
 extends CharacterBody3D
 
+@warning_ignore("unused_signal")
 signal damage_taken(amount: int)
+@warning_ignore("unused_signal")
 signal healed(amount: int)
 
+# Movement variables
 var BASE_SPEED: float = 15.0
-var BASE_ACCELERATION: float = 8 * BASE_SPEED
+var BASE_ACCELERATION: float = 4 * BASE_SPEED
 var BASE_DECELERATION: float = 11 * BASE_SPEED
 var AIR_ACC_MULTIPLIER: float = 0.7
-const JUMP_VELOCITY: float = 13
+var DIR_CHANGE_ACC_MULT: float = 1.2
+const JUMP_VELOCITY: float = 13.0
+var FALLING_GRAVITY_MULT: float = 1.2
+var RESPAWN_HEIGHT: float = -45.0
+
+# Camera variables
 var SENSITIVITY: float = 0.0020
+var CAMERA_TILT: float = deg_to_rad(1)
+var BASE_FOV := 75.0
+var TOP_FOV := BASE_FOV * 1.05
+var FOV_WEIGHT := 10.0
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
@@ -36,30 +48,47 @@ func _input(event: InputEvent) -> void:
 		$Head/Camera3D/Leg/AnimationPlayer.play(&"ArmatureAction")
 
 
+func _physics_process(_delta: float) -> void:
+	if self.position.y < RESPAWN_HEIGHT:
+		self.position = Vector3(0, 1, 0)
+		head.rotation.y = 0
+		camera.rotation.x = 0
+
+
 ## Moves the player
 func handle_movement(max_speed: float, acceleration: float, deceleration: float, delta: float) -> void:
-	## the acceleration in the player movement might be too high, 
-	## 2 * BASE_ACCELERATION feels better for me but it might just be my bad computer
-	## I think the acceleration should be higher when changing direction to feel less floaty
-	## And speed should be slower when moving backwards
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector(&"left", &"right", &"forward", &"backward")
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction != Vector3.ZERO:
-		velocity.x = velocity.move_toward(direction * max_speed, acceleration * delta).x
-		velocity.z = velocity.move_toward(direction * max_speed, acceleration * delta).z
+	
+	if direction.length() < Global.epsilon:
+		# not moving decelerate quickly
+		velocity.x = velocity.move_toward(direction * max_speed, deceleration * delta).x
+		velocity.z = velocity.move_toward(direction * max_speed, deceleration * delta).z
 	else:
-		var weight := 1 - exp(-deceleration) * delta
-		velocity.x = velocity.move_toward(direction * max_speed, weight).x
-		velocity.z = velocity.move_toward(direction * max_speed, weight).z
-
+		# accelerate faster when changing direction
+		var projected_vel: Vector3 = Vector3(velocity.x, 0.0, velocity.z)
+		var dir_vel_angle: float = direction.angle_to(projected_vel)
+		
+		var acc: float = remap(dir_vel_angle, 0, PI, acceleration, acceleration * DIR_CHANGE_ACC_MULT)
+		velocity.x = velocity.move_toward(direction * max_speed, acc * delta).x
+		velocity.z = velocity.move_toward(direction * max_speed, acc * delta).z
+	
 	# Gravity
 	if not self.is_on_floor():
-		var descent_mult: float = 1.0 if velocity.y < 0 else 1.2
+		var descent_mult: float = 1.0 if velocity.y < 0 else FALLING_GRAVITY_MULT
 		velocity += Global.GRAVITY * descent_mult * delta
 	
-	# Camera tilt
-	var right := velocity.dot(self.basis.x)
-	Debug.update_debug(&"Right", right)
-		
+	movement_camera_effects(delta)
+	
 	self.move_and_slide()
+
+
+func movement_camera_effects(delta: float) -> void:
+	# Camera tilt
+	var right: float = velocity.dot(head.basis.x) / BASE_SPEED
+	camera.rotation.z = remap(-right, -1, 1, -self.CAMERA_TILT, self.CAMERA_TILT)
+	
+	# Camera FOV
+	var desired_fov: float = remap(velocity.length(), 0, BASE_SPEED, BASE_FOV, TOP_FOV)
+	camera.fov = lerp(camera.fov, desired_fov, FOV_WEIGHT * delta)
