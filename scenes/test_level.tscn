@@ -1,14 +1,18 @@
-[gd_scene load_steps=14 format=4 uid="uid://d14d06akjgjil"]
+[gd_scene load_steps=18 format=4 uid="uid://d14d06akjgjil"]
 
 [ext_resource type="Script" uid="uid://cqlluj3wi52eo" path="res://scripts/level.gd" id="1_j6w7d"]
 [ext_resource type="PackedScene" uid="uid://b6sy1efn0vy1h" path="res://scenes/player.tscn" id="1_paw1w"]
 [ext_resource type="Material" uid="uid://ddw5fqewtwjy6" path="res://materials/dark_material.tres" id="4_qcd3b"]
 [ext_resource type="PackedScene" uid="uid://c08qcm5drvgqp" path="res://scenes/test_enemy.tscn" id="4_x4b8f"]
+[ext_resource type="PackedScene" uid="uid://yuksubdd6cnt" path="res://scenes/collectable.tscn" id="5_tmr53"]
+[ext_resource type="Texture2D" uid="uid://biwljvjkx8h53" path="res://textures/collectables/note.png" id="6_ahbqi"]
+[ext_resource type="Script" uid="uid://bh6doqqtce7rk" path="res://scripts/component_scripts/collectable_component.gd" id="6_qcd3b"]
+[ext_resource type="Resource" uid="uid://bmcbm76ibno65" path="res://resources/note.tres" id="7_88ety"]
 
 [sub_resource type="Environment" id="Environment_sugp2"]
 background_energy_multiplier = 0.0
 ambient_light_source = 2
-ambient_light_color = Color(0.228877, 0.21235, 0.157255, 1)
+ambient_light_color = Color(0.321127, 0.29963, 0.227948, 1)
 ambient_light_energy = 3.15
 reflected_light_source = 1
 tonemap_mode = 3
@@ -149,3 +153,13 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="house1/building_001/StaticBody3D"]
 visible = false
 shape = SubResource("ConcavePolygonShape3D_tmr53")
+
+[node name="Collectables" type="Node3D" parent="."]
+
+[node name="Note" parent="Collectables" instance=ExtResource("5_tmr53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40339, 0.682037, -16.964)
+TEXTURE = ExtResource("6_ahbqi")
+
+[node name="CollectableComponent" type="Node" parent="Collectables/Note"]
+script = ExtResource("6_qcd3b")
+COLLECTABLE = ExtResource("7_88ety")

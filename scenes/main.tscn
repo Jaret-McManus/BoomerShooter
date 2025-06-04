@@ -39,8 +39,11 @@ render_target_update_mode = 4
 
 [node name="SettingsManager" type="Node" parent="."]
 
-[node name="ScreenManager" type="Node" parent="."]
+[node name="ScreenManager" type="Node" parent="." node_paths=PackedStringArray("NOTE_LAYER")]
 script = ExtResource("2_jyhfs")
+NOTE_LAYER = NodePath("../NoteLayer")
+
+[node name="DialogueManager" type="Node" parent="."]
 
 [node name="GUIManager" type="CanvasLayer" parent="." node_paths=PackedStringArray("health_indicator", "sanity_indicator", "health_label", "sanity_label")]
 script = ExtResource("3_tbgi4")
@@ -129,3 +132,5 @@ theme_override_constants/margin_bottom = 8
 [node name="VBoxContainer" type="VBoxContainer" parent="GUIManager/DebugPanel/MarginContainer"]
 layout_mode = 2
 theme = SubResource("Theme_o6xl0")
+
+[node name="NoteLayer" type="CanvasLayer" parent="."]

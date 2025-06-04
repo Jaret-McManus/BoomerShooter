@@ -57,6 +57,10 @@ func _physics_process(_delta: float) -> void:
 
 ## Moves the player
 func handle_movement(max_speed: float, acceleration: float, deceleration: float, delta: float) -> void:
+	if Global.screen_manager.NOTE_LAYER.get_child_count() > 0: return
+	## Could we try implementing a slower backwards speed and
+	## a slower jump deceleration so when you're jumping you don't
+	## just stop mid-air
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector(&"left", &"right", &"forward", &"backward")
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -89,6 +93,8 @@ func movement_camera_effects(delta: float) -> void:
 	var right: float = velocity.dot(head.basis.x) / BASE_SPEED
 	camera.rotation.z = remap(-right, -1, 1, -self.CAMERA_TILT, self.CAMERA_TILT)
 	
+	## It might be better to have the FOV shift only when moving forward
+	## or have the FOV shift less
 	# Camera FOV
 	var desired_fov: float = remap(velocity.length(), 0, BASE_SPEED, BASE_FOV, TOP_FOV)
 	camera.fov = lerp(camera.fov, desired_fov, FOV_WEIGHT * delta)
