@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c08qcm5drvgqp" path="res://scenes/test_enemy.tscn" id="4_x4b8f"]
 [ext_resource type="PackedScene" uid="uid://yuksubdd6cnt" path="res://scenes/collectable.tscn" id="5_tmr53"]
 [ext_resource type="Texture2D" uid="uid://biwljvjkx8h53" path="res://textures/collectables/note.png" id="6_ahbqi"]
-[ext_resource type="Script" uid="uid://bh6doqqtce7rk" path="res://scripts/component_scripts/collectable_component.gd" id="6_qcd3b"]
+[ext_resource type="Script" path="res://scripts/component_scripts/collectable_component.gd" id="6_qcd3b"]
 [ext_resource type="Resource" uid="uid://bmcbm76ibno65" path="res://resources/note.tres" id="7_88ety"]
 
 [sub_resource type="Environment" id="Environment_sugp2"]
