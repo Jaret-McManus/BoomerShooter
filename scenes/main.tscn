@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://c0xscpnnqghjx"]
 
 [ext_resource type="PackedScene" uid="uid://d14d06akjgjil" path="res://scenes/test_level.tscn" id="1_0wfyh"]
-[ext_resource type="Script" uid="uid://bgo7fmip27v01" path="res://scripts/screen_manager.gd" id="2_jyhfs"]
+[ext_resource type="Script" uid="uid://bgo7fmip27v01" path="res://scripts/manager_scripts/screen_manager.gd" id="2_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://r347wdjydb4x" path="res://textures/gui/heart.png" id="3_jyhfs"]
-[ext_resource type="Script" uid="uid://ch4xhh88221ey" path="res://scripts/gui_manager.gd" id="3_tbgi4"]
+[ext_resource type="Script" uid="uid://ch4xhh88221ey" path="res://scripts/manager_scripts/gui_manager.gd" id="3_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://jobylj2vrplb" path="res://textures/gui/brain.png" id="4_tbgi4"]
 [ext_resource type="Theme" uid="uid://f4i6cjmq0be4" path="res://themes/debug_panel.tres" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://dyqarss8ortuf" path="res://scripts/debug_panel.gd" id="7_o6xl0"]

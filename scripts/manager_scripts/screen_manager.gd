@@ -16,17 +16,25 @@ func _input(event: InputEvent) -> void:
 		if NOTE_LAYER.get_child_count() > 0:
 			NOTE_LAYER.get_child(0).queue_free()
 		else: 
-			switch_mouse_capture_mode(Input.mouse_mode == Input.MOUSE_MODE_CAPTURED)
+			switch_window_mode()
 	
 	if event.is_action_pressed(&"debug_toggle"):
 		Debug.DEBUG_MODE = not Debug.DEBUG_MODE
 		Debug.panel.visible = Debug.DEBUG_MODE
 
 
-func switch_mouse_capture_mode(is_captured: bool) -> void:
-	if is_captured:
+func _process(_delta: float) -> void:
+	## -- fullscreen makes the game run at 25-30FPS for me, but windowed stays at 57-60FPS -- ##
+	# I set max FPS to 60
+	Debug.update_debug(&"FPS", Engine.get_frames_per_second())
+
+
+func switch_window_mode() -> void:
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 

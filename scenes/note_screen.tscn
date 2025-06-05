@@ -25,3 +25,13 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 17.0
+offset_right = 162.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.321728, 0.321728, 0.321728, 1)
+theme_override_font_sizes/font_size = 16
+text = "Press ESC to close"
