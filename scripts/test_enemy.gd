@@ -1,26 +1,49 @@
 extends CharacterBody3D
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const SPEED := 5.0
+const JUMP_VELOCITY := 4.5
+const ROTATION_SPEED := 185.0
 
 @export var ANIMATION_PLAYER : AnimationPlayer
 @export var SPRITE : Sprite3D
 
 var target : Player = null
-# 0 - 7 for the 8 directions to be animated
 var current_sprite_direction : int = 0
+
+
+func _on_player_spotted() -> void:
+	target = Global.player
+
+
+func _on_player_unspotted() -> void:
+	target = null
 
 
 func _on_died() -> void:
 	queue_free()
 
 
+func _ready() -> void:
+	rotation.y = randf_range(0.0, 364.99)
+
+
 func _physics_process(delta: float) -> void:
 	bilboard_sprite()
 	set_sprite_direction()
 	apply_gravity(delta)
+	if target != null: look_at_player()
 	move_random_direction()
 	move_and_slide()
+
+
+func look_at_player() -> void:
+	var to_target : Vector3 = target.global_transform.origin - global_transform.origin
+	to_target = to_target.normalized()
+	var right : Vector3 = global_transform.basis.x
+	var r_dot : float = to_target.dot(right) # same direction = 1.0, perpendicular = 0.0
+	
+	rotation_degrees.y += ROTATION_SPEED * r_dot * get_physics_process_delta_time()
+	
 
 
 func apply_gravity(delta: float) -> void:
@@ -42,7 +65,6 @@ func move_random_direction() -> void:
 			velocity.z -= 3
 	else:
 		velocity *= 0.8
-	
 
 
 #custom bilboard function to give us access to the 
@@ -51,10 +73,9 @@ func bilboard_sprite() -> void:
 	#set the sprite to look at the player
 	SPRITE.look_at(Vector3(
 		Global.player.global_transform.origin.x, 
-		SPRITE.global_transform.origin.y,
+		SPRITE.global_transform.origin.y, #this line keeps the sprite's y-rotation
 		Global.player.global_transform.origin.z
 	))
-	#flip the sprite to face the player
 	SPRITE.rotation_degrees.y += 180
 
 
@@ -66,8 +87,6 @@ func set_sprite_direction() -> void:
 	
 	#if the sprite direction changes, apply the new sprite direction
 	if sprite_direction == current_sprite_direction: return
-	Debug.update_debug(&"Sprite Direction", SPRITE.rotation_degrees.y)
-	Debug.update_debug(&"Sprite yRotation", sprite_direction)
 	current_sprite_direction = sprite_direction
 	set_animation_frames(&"walk")
 
