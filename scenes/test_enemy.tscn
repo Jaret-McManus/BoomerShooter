@@ -5,21 +5,6 @@
 [ext_resource type="Script" uid="uid://cpj7ll4l4jsg3" path="res://scripts/component_scripts/health_component.gd" id="3_8c00y"]
 [ext_resource type="Script" uid="uid://dgu7dyqnmjcli" path="res://scripts/component_scripts/htibox_component.gd" id="5_1y3pe"]
 
-[sub_resource type="Animation" id="Animation_lkcdx"]
-resource_name = "idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [21]
-}
-
 [sub_resource type="Animation" id="Animation_8c00y"]
 length = 0.001
 tracks/0/type = "value"
@@ -33,6 +18,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_lkcdx"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
 }
 
 [sub_resource type="Animation" id="Animation_jqw88"]
