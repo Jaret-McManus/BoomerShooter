@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://b6sy1efn0vy1h"]
+[gd_scene load_steps=13 format=3 uid="uid://b6sy1efn0vy1h"]
 
 [ext_resource type="Script" uid="uid://dn6vcg4j80x1l" path="res://scripts/states/movement/movement_state_machine.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://ymw12p3073cc" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://c36to6iflrjvp" path="res://scripts/states/movement/walking.gd" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://do40xm3kfh615" path="res://scenes/leg.tscn" id="2_tuyoq"]
 [ext_resource type="Script" uid="uid://cd5yqh3eadxe" path="res://scripts/states/movement/idle.gd" id="3_dqkch"]
+[ext_resource type="PackedScene" uid="uid://clix1dx2c7my4" path="res://scenes/weapons/shovel.tscn" id="3_ur7pv"]
 [ext_resource type="Script" uid="uid://c7ebykq12frdq" path="res://scripts/states/movement/jumping.gd" id="5_qlg0r"]
 [ext_resource type="Script" uid="uid://cpj7ll4l4jsg3" path="res://scripts/component_scripts/health_component.gd" id="7_smehm"]
 [ext_resource type="Script" uid="uid://dgu7dyqnmjcli" path="res://scripts/component_scripts/htibox_component.gd" id="9_ur7pv"]
@@ -28,6 +29,7 @@ mesh = SubResource("CapsuleMesh_qhqgy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_dqkch")
+debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546005, 0)
@@ -38,6 +40,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546005, 0)
 
 [node name="Leg" parent="Head/TiltControl/Camera3D" instance=ExtResource("2_tuyoq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, -0.5)
+
+[node name="Sprite3D" parent="Head/TiltControl/Camera3D" instance=ExtResource("3_ur7pv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.327201, -0.0945826, -0.432005)
+
+[node name="HtiboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("9_ur7pv")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HtiboxComponent"]
+shape = SubResource("CapsuleShape3D_ur7pv")
+debug_color = Color(0.993861, 0, 0.231178, 0.42)
 
 [node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "initial_state")]
 script = ExtResource("1_3vyb7")
@@ -55,11 +68,3 @@ script = ExtResource("5_qlg0r")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("7_smehm")
-
-[node name="HtiboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
-script = ExtResource("9_ur7pv")
-health_component = NodePath("../HealthComponent")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HtiboxComponent"]
-shape = SubResource("CapsuleShape3D_ur7pv")
-debug_color = Color(0.993861, 0, 0.231178, 0.42)

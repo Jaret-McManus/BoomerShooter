@@ -13,10 +13,12 @@ var current_sprite_direction : int = 0
 
 func _on_player_spotted() -> void:
 	target = Global.player
+	Debug.update_debug(&"player target", target)
 
 
 func _on_player_unspotted() -> void:
 	target = null
+	Debug.update_debug(&"player target", target)
 
 
 func _on_died() -> void:
@@ -24,7 +26,10 @@ func _on_died() -> void:
 
 
 func _ready() -> void:
+	
 	rotation.y = randf_range(0.0, 364.99)
+	await get_tree().create_timer(0.5).timeout
+	Debug.update_debug(&"player target", target)
 
 
 func _physics_process(delta: float) -> void:

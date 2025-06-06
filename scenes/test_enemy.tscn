@@ -112,6 +112,7 @@ shape = SubResource("CapsuleShape3D_8c00y")
 debug_color = Color(0.996928, 0, 0.176858, 0.42)
 
 [node name="DetectArea" type="Area3D" parent="." node_paths=PackedStringArray("DETECT_RAY")]
+collision_layer = 2
 script = ExtResource("5_8c00y")
 DETECT_RAY = NodePath("DetectRay")
 
@@ -120,4 +121,4 @@ shape = SubResource("SphereShape3D_lkcdx")
 
 [node name="DetectRay" type="RayCast3D" parent="DetectArea"]
 enabled = false
-target_position = Vector3(0, 0, 8)
+target_position = Vector3(0, 0, 17)

@@ -29,10 +29,17 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if DETECT_RAY.enabled == false: return
-	DETECT_RAY.look_at(Global.player.global_transform.origin)
-	DETECT_RAY.rotation_degrees.y += 180
+	
+	var head_origin: Vector3 = Global.player.head.global_transform.origin
+	DETECT_RAY.look_at(head_origin)
+	
+	#DETECT_RAY.rotation *= -1
+	var ray_rot: Vector3 = DETECT_RAY.rotation
+	DETECT_RAY.rotation = Vector3(-ray_rot.x, ray_rot.y + PI, -ray_rot.z)
+	
 	if DETECT_RAY.is_colliding():
 		var collider : Node3D = DETECT_RAY.get_collider()
+		print("collider is %s" % collider)
 		if collider is Player:
 			if is_player_visible == false:
 				is_player_visible = true
