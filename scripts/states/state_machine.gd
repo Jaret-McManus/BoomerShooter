@@ -15,9 +15,6 @@ func _ready() -> void:
 		state_dict[node.name] = node # add to dict for lookup
 		node.transition.connect(transition) # add transition func to signal
 	curr_state.enter()
-	
-	print("Ready done, state dict: ")
-	print(state_dict)
 
 
 func _process(delta: float) -> void:
@@ -32,7 +29,7 @@ func _input(event: InputEvent) -> void:
 	curr_state.input(event)
 
 
-func transition(next_state: StringName):
+func transition(next_state: StringName) -> void:
 	curr_state.exit()
 	curr_state = state_dict[next_state]
 	curr_state.enter()

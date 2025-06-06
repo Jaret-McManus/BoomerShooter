@@ -5,7 +5,7 @@ extends PlayerState
 @onready var DECELERATION: float = player.BASE_DECELERATION
 
 func enter() -> void:
-	print("Walk state entered!")
+	pass
 
 
 func exit() -> void:

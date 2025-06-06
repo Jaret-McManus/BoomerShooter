@@ -1,17 +1,124 @@
-[gd_scene load_steps=4 format=3 uid="uid://c08qcm5drvgqp"]
+[gd_scene load_steps=13 format=3 uid="uid://c08qcm5drvgqp"]
 
-[ext_resource type="Texture2D" uid="uid://c6l30u7marrou" path="res://textures/enemies/Half-Life.png" id="1_ghv5c"]
 [ext_resource type="Script" uid="uid://cd3odxkjvfuew" path="res://scripts/test_enemy.gd" id="1_mkyue"]
+[ext_resource type="Texture2D" uid="uid://dncjnr24af1j0" path="res://textures/enemies/8dir_placeholder.png" id="2_lkcdx"]
+[ext_resource type="Script" uid="uid://cpj7ll4l4jsg3" path="res://scripts/component_scripts/health_component.gd" id="3_8c00y"]
+[ext_resource type="Script" uid="uid://dgu7dyqnmjcli" path="res://scripts/component_scripts/htibox_component.gd" id="5_1y3pe"]
+[ext_resource type="Script" uid="uid://dq0nx7tbltfcj" path="res://scripts/detect_area.gd" id="5_8c00y"]
+
+[sub_resource type="Animation" id="Animation_8c00y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_lkcdx"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
+}
+
+[sub_resource type="Animation" id="Animation_jqw88"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.433333, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1y3pe"]
+_data = {
+&"RESET": SubResource("Animation_8c00y"),
+&"idle": SubResource("Animation_lkcdx"),
+&"walk": SubResource("Animation_jqw88")
+}
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yikbh"]
 
-[node name="TestEnemy" type="CharacterBody3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8c00y"]
+radius = 0.742797
+height = 2.06226
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lkcdx"]
+radius = 17.0
+
+[node name="TestEnemy" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATION_PLAYER", "SPRITE")]
 script = ExtResource("1_mkyue")
+ANIMATION_PLAYER = NodePath("AnimationPlayer")
+SPRITE = NodePath("Sprite3D")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.61, 0, 0, 0, 0.61, 0, 0, 0, 0.61, 0.186295, 0, 0)
-billboard = 2
-texture = ExtResource("1_ghv5c")
+transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, -0.090281, 0.107821, 0)
+texture_filter = 0
+texture = ExtResource("2_lkcdx")
+hframes = 8
+vframes = 5
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 280)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1y3pe")
+}
+autoplay = "walk"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_yikbh")
+
+[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163896, 0.0102435, 0)
+aabb = AABB(-0.791313, -0.975697, -0.766522, 1.58263, 1.95139, 1.53304)
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_8c00y")
+MAX_HEALTH = 3
+current_health = 3
+metadata/_custom_type_script = "uid://cpj7ll4l4jsg3"
+
+[node name="HitboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("5_1y3pe")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://dgu7dyqnmjcli"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("CapsuleShape3D_8c00y")
+debug_color = Color(0.996928, 0, 0.176858, 0.42)
+
+[node name="DetectArea" type="Area3D" parent="." node_paths=PackedStringArray("DETECT_RAY")]
+collision_layer = 2
+script = ExtResource("5_8c00y")
+DETECT_RAY = NodePath("DetectRay")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectArea"]
+shape = SubResource("SphereShape3D_lkcdx")
+
+[node name="DetectRay" type="RayCast3D" parent="DetectArea"]
+enabled = false
+target_position = Vector3(0, 0, 17)

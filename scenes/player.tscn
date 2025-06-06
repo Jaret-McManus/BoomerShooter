@@ -1,33 +1,56 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6sy1efn0vy1h"]
+[gd_scene load_steps=13 format=3 uid="uid://b6sy1efn0vy1h"]
 
 [ext_resource type="Script" uid="uid://dn6vcg4j80x1l" path="res://scripts/states/movement/movement_state_machine.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://ymw12p3073cc" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://c36to6iflrjvp" path="res://scripts/states/movement/walking.gd" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://do40xm3kfh615" path="res://scenes/leg.tscn" id="2_tuyoq"]
 [ext_resource type="Script" uid="uid://cd5yqh3eadxe" path="res://scripts/states/movement/idle.gd" id="3_dqkch"]
+[ext_resource type="PackedScene" uid="uid://clix1dx2c7my4" path="res://scenes/weapons/shovel.tscn" id="3_ur7pv"]
 [ext_resource type="Script" uid="uid://c7ebykq12frdq" path="res://scripts/states/movement/jumping.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://cpj7ll4l4jsg3" path="res://scripts/component_scripts/health_component.gd" id="7_smehm"]
+[ext_resource type="Script" uid="uid://dgu7dyqnmjcli" path="res://scripts/component_scripts/htibox_component.gd" id="9_ur7pv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qhqgy"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dqkch"]
 points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ur7pv"]
+radius = 0.501949
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "camera", "tilt_control")]
 script = ExtResource("1_qhqgy")
+head = NodePath("Head")
+camera = NodePath("Head/TiltControl/Camera3D")
+tilt_control = NodePath("Head/TiltControl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_qhqgy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_dqkch")
+debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546005, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="TiltControl" type="Node3D" parent="Head"]
 
-[node name="Leg" parent="Head/Camera3D" instance=ExtResource("2_tuyoq")]
+[node name="Camera3D" type="Camera3D" parent="Head/TiltControl"]
+
+[node name="Leg" parent="Head/TiltControl/Camera3D" instance=ExtResource("2_tuyoq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, -0.5)
+
+[node name="Sprite3D" parent="Head/TiltControl/Camera3D" instance=ExtResource("3_ur7pv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.327201, -0.0945826, -0.432005)
+
+[node name="HtiboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("9_ur7pv")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HtiboxComponent"]
+shape = SubResource("CapsuleShape3D_ur7pv")
+debug_color = Color(0.993861, 0, 0.231178, 0.42)
 
 [node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "initial_state")]
 script = ExtResource("1_3vyb7")
@@ -42,3 +65,6 @@ script = ExtResource("2_g2els")
 
 [node name="Jumping" type="Node" parent="MovementStateMachine"]
 script = ExtResource("5_qlg0r")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("7_smehm")
