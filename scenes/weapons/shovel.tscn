@@ -6,6 +6,21 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_n0nf3"]
 size = Vector3(1.37646, 0.95, 2.97693)
 
+[sub_resource type="Animation" id="Animation_nr7ly"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_n0nf3"]
 resource_name = "attack"
 length = 0.4
@@ -40,21 +55,6 @@ tracks/1/keys = {
 "args": [],
 "method": &"disable_collision_ray"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_nr7ly"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nr7ly"]

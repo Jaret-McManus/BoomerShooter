@@ -47,24 +47,19 @@ func damage_targets() -> void:
 	for target: HitboxComponent in targets:
 		target.take_damage(attack_damage)
 		target.get_parent().position.y += 0.5
-		print("Target: %s took damage" % str(target))
 
 
 func collision_check(target: HitboxComponent) -> bool:
-	print("target is %s" % target)
 	#COLLISION_RAY.enabled = trues
 	var target_origin: Vector3 = target.global_transform.origin
 	COLLISION_RAY.target_position = COLLISION_RAY.to_local(target_origin)
 	
 	if COLLISION_RAY.is_colliding():
 		var collider : Node3D = COLLISION_RAY.get_collider()
-		print("collider is %s" % collider)
 		#COLLISION_RAY.enabled = false
 		if collider is HitboxComponent:
-			print("hit!")
 			return true
 		else:
-			print("missed bc of wall!")
 			return false
 	
 	return false

@@ -39,7 +39,6 @@ func _process(_delta: float) -> void:
 	
 	if DETECT_RAY.is_colliding():
 		var collider : Node3D = DETECT_RAY.get_collider()
-		print("collider is %s" % collider)
 		if collider is Player:
 			if is_player_visible == false:
 				is_player_visible = true
