@@ -26,7 +26,7 @@ var FOV_WEIGHT := 10.0
 @export var head: Node3D
 @export var camera: Camera3D
 @export var tilt_control: Node3D
-
+@export var SFX : AudioStreamPlayer3D
 
 func _on_died() -> void:
 	pass
@@ -44,11 +44,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"kick"):
-		$Head/TiltControl/Camera3D/Leg/AnimationPlayer.play(&"ArmatureAction")
-
-
 func _physics_process(_delta: float) -> void:
 	if self.position.y < RESPAWN_HEIGHT:
 		self.position = Vector3(0, 1, 0)
@@ -59,9 +54,7 @@ func _physics_process(_delta: float) -> void:
 ## Moves the player
 func handle_movement(max_speed: float, acceleration: float, deceleration: float, delta: float) -> void:
 	if Global.screen_manager.NOTE_LAYER.get_child_count() > 0: return
-	## Could we try implementing a slower backwards speed and
-	## a slower jump deceleration so when you're jumping you don't
-	## just stop mid-air
+
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector(&"left", &"right", &"forward", &"backward")
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -94,8 +87,6 @@ func movement_camera_effects(delta: float) -> void:
 	var right: float = velocity.dot(head.basis.x) / BASE_SPEED
 	tilt_control.rotation.z = remap(-right, -1, 1, -self.CAMERA_TILT, self.CAMERA_TILT)
 	
-	## It might be better to have the FOV shift only when moving forward
-	## or have the FOV shift less
 	# Camera FOV
 	var desired_fov: float = remap(velocity.length(), 0, BASE_SPEED, BASE_FOV, TOP_FOV)
 	camera.fov = lerp(camera.fov, desired_fov, FOV_WEIGHT * delta)

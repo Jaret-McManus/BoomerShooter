@@ -30,6 +30,7 @@ func _input(event: InputEvent) -> void:
 func attack() -> void:
 	if not ANIMATION_PLAYER.is_playing():
 		ANIMATION_PLAYER.play("attack")
+		Global.player.SFX.play()
 	
 	#if weapon_type != WeaponTypes.PROJECTILE: return
 	#var new_projectile : Area3D = projectile_scene.instantiate()

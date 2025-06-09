@@ -1,7 +1,6 @@
 class_name HealthComponent
 extends Node
 
-signal died
 signal damage_taken(stun_time: float)
 
 @export var STUN_TIME : int = 0

@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://c08qcm5drvgqp"]
+[gd_scene load_steps=14 format=3 uid="uid://c08qcm5drvgqp"]
 
 [ext_resource type="Script" uid="uid://cd3odxkjvfuew" path="res://scripts/test_enemy.gd" id="1_mkyue"]
 [ext_resource type="Texture2D" uid="uid://dncjnr24af1j0" path="res://textures/enemies/8dir_placeholder.png" id="2_lkcdx"]
 [ext_resource type="Script" uid="uid://cpj7ll4l4jsg3" path="res://scripts/component_scripts/health_component.gd" id="3_8c00y"]
 [ext_resource type="Script" uid="uid://dgu7dyqnmjcli" path="res://scripts/component_scripts/htibox_component.gd" id="5_1y3pe"]
 [ext_resource type="Script" uid="uid://dq0nx7tbltfcj" path="res://scripts/detect_area.gd" id="5_8c00y"]
+[ext_resource type="AudioStream" uid="uid://dwuvvwwaifsf5" path="res://audio/painsound2.mp3" id="6_jqw88"]
 
 [sub_resource type="Animation" id="Animation_8c00y"]
 length = 0.001
@@ -69,10 +70,11 @@ height = 2.06226
 [sub_resource type="SphereShape3D" id="SphereShape3D_lkcdx"]
 radius = 17.0
 
-[node name="TestEnemy" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATION_PLAYER", "SPRITE")]
+[node name="TestEnemy" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATION_PLAYER", "SPRITE", "SFX")]
 script = ExtResource("1_mkyue")
 ANIMATION_PLAYER = NodePath("AnimationPlayer")
 SPRITE = NodePath("Sprite3D")
+SFX = NodePath("SFX")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, -0.090281, 0.107821, 0)
@@ -117,8 +119,12 @@ script = ExtResource("5_8c00y")
 DETECT_RAY = NodePath("DetectRay")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectArea"]
+visible = false
 shape = SubResource("SphereShape3D_lkcdx")
 
 [node name="DetectRay" type="RayCast3D" parent="DetectArea"]
 enabled = false
 target_position = Vector3(0, 0, 17)
+
+[node name="SFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_jqw88")

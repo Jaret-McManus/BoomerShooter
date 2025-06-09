@@ -6,6 +6,7 @@ const ROTATION_SPEED := 185.0
 
 @export var ANIMATION_PLAYER : AnimationPlayer
 @export var SPRITE : Sprite3D
+@export var SFX : AudioStreamPlayer3D
 
 var target : Player = null
 var current_sprite_direction : int = 0
@@ -13,27 +14,24 @@ var current_sprite_direction : int = 0
 
 func _on_player_spotted() -> void:
 	target = Global.player
-	Debug.update_debug(&"player target", target)
 
 
 func _on_player_unspotted() -> void:
 	target = null
-	Debug.update_debug(&"player target", target)
 
 
-func _on_damage_taken(stun_time: float, is_dead:= false) -> void:
+func _on_damage_taken(_stun_time: float, is_dead:= false) -> void:
 	SPRITE.modulate = Color.RED
+	if !is_dead: SFX.play()
 	await get_tree().create_timer(0.1).timeout
 	if is_dead:
 		queue_free()
 	else:
 		SPRITE.modulate = Color.WHITE
 
+
 func _ready() -> void:
-	
 	rotation.y = randf_range(0.0, 364.99)
-	await get_tree().create_timer(0.5).timeout
-	Debug.update_debug(&"player target", target)
 
 
 func _physics_process(delta: float) -> void:
