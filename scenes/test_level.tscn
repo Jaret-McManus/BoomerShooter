@@ -10,8 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://b8teb11nk1beh" path="res://models/test_layout.glb" id="7_ahbqi"]
 
 [sub_resource type="Environment" id="Environment_sugp2"]
-background_energy_multiplier = 0.0
-ambient_light_source = 2
+background_mode = 1
+background_color = Color(0.259948, 0.563281, 0.587902, 1)
+background_energy_multiplier = 0.55
+ambient_light_source = 1
 ambient_light_color = Color(0.5713, 0.531485, 0.520742, 1)
 ambient_light_energy = 1.63
 reflected_light_source = 1
@@ -37,15 +39,6 @@ script = ExtResource("1_j6w7d")
 
 [node name="Player" parent="." instance=ExtResource("1_paw1w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.31, 2.03085, 10.4382)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
-light_color = Color(0.966306, 0.866762, 0.662027, 1)
-light_specular = 0.0
-shadow_enabled = true
-directional_shadow_mode = 0
-directional_shadow_split_1 = 0.133
-directional_shadow_blend_splits = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sugp2")
