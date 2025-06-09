@@ -71,6 +71,7 @@ AREA = NodePath("Area3D")
 COLLISION_RAY = NodePath("CollisionRay")
 
 [node name="ShovelSprite" type="Sprite3D" parent="."]
+no_depth_test = true
 texture_filter = 0
 texture = ExtResource("1_hloqn")
 

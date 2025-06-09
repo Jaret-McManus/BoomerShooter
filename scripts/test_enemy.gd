@@ -21,9 +21,13 @@ func _on_player_unspotted() -> void:
 	Debug.update_debug(&"player target", target)
 
 
-func _on_died() -> void:
-	queue_free()
-
+func _on_damage_taken(stun_time: float, is_dead:= false) -> void:
+	SPRITE.modulate = Color.RED
+	await get_tree().create_timer(0.1).timeout
+	if is_dead:
+		queue_free()
+	else:
+		SPRITE.modulate = Color.WHITE
 
 func _ready() -> void:
 	

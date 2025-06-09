@@ -41,7 +41,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546005, 0)
 [node name="Leg" parent="Head/TiltControl/Camera3D" instance=ExtResource("2_tuyoq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, -0.5)
 
-[node name="Sprite3D" parent="Head/TiltControl/Camera3D" instance=ExtResource("3_ur7pv")]
+[node name="Shovel" parent="Head/TiltControl/Camera3D" instance=ExtResource("3_ur7pv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.327201, -0.0945826, -0.432005)
 
 [node name="HtiboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]

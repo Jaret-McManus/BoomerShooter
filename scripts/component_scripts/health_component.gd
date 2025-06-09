@@ -1,11 +1,8 @@
 class_name HealthComponent
 extends Node
 
-@warning_ignore("unused_signal")
 signal died
-signal stunned(stun_time: int)
-@warning_ignore("unused_signal")
-signal health_changed()
+signal damage_taken(stun_time: float)
 
 @export var STUN_TIME : int = 0
 @export var MAX_HEALTH : int = 10
@@ -13,7 +10,7 @@ signal health_changed()
 
 
 func _ready() -> void:
-	died.connect(Callable(get_parent(), "_on_died"))
+	damage_taken.connect(Callable(get_parent(), "_on_damage_taken"))
 
 
 func heal(amount: int) -> void:
@@ -26,12 +23,10 @@ func heal(amount: int) -> void:
 func take_damage(amount: int) -> void:
 	current_health -= amount
 	
-	if STUN_TIME > 0:
-		stunned.emit(STUN_TIME)
-		
 	if current_health <= 0:
-		died.emit()
 		current_health = 0
+	var is_dead := false if current_health > 0 else true
+	damage_taken.emit(STUN_TIME, is_dead)
 
 	if get_parent() is Player:
 		Global.gui_manager.set_health(current_health)

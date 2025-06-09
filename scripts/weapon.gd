@@ -1,4 +1,4 @@
-class_name Weapon 
+class_name Weapon
 extends Node3D
 
 enum WeaponTypes {MELEE, PROJECTILE}
@@ -15,7 +15,6 @@ enum WeaponTypes {MELEE, PROJECTILE}
 
 var enemy_targets: Array[Variant] = []
 
-## -- Feel free to change everything in this script -- ##
 
 func _ready() -> void:
 	#if weapon_type == WeaponTypes.MELEE:
@@ -32,7 +31,7 @@ func attack() -> void:
 	if not ANIMATION_PLAYER.is_playing():
 		ANIMATION_PLAYER.play("attack")
 	
-	if weapon_type != WeaponTypes.PROJECTILE: return
+	#if weapon_type != WeaponTypes.PROJECTILE: return
 	#var new_projectile : Area3D = projectile_scene.instantiate()
 
 
