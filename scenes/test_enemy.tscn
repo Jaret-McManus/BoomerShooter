@@ -76,6 +76,10 @@ ANIMATION_PLAYER = NodePath("AnimationPlayer")
 SPRITE = NodePath("Sprite3D")
 SFX = NodePath("SFX")
 
+[node name="SFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_jqw88")
+volume_db = -10.283
+
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, -0.090281, 0.107821, 0)
 texture_filter = 0
@@ -125,6 +129,3 @@ shape = SubResource("SphereShape3D_lkcdx")
 [node name="DetectRay" type="RayCast3D" parent="DetectArea"]
 enabled = false
 target_position = Vector3(0, 0, 17)
-
-[node name="SFX" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("6_jqw88")

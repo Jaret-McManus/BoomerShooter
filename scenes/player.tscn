@@ -73,3 +73,4 @@ script = ExtResource("7_smehm")
 
 [node name="SFX" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("10_y4r1p")
+volume_db = -8.466
