@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 const SPEED := 5.0
 const JUMP_VELOCITY := 4.5
-const ROTATION_SPEED := 185.0
+const ROTATION_SPEED := 110.0
 
 @export var ANIMATION_PLAYER : AnimationPlayer
 @export var SPRITE : Sprite3D
