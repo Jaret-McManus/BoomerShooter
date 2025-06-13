@@ -22,9 +22,13 @@ func _on_player_unspotted() -> void:
 
 func _on_damage_taken(_stun_time: float, is_dead:= false) -> void:
 	SPRITE.modulate = Color.RED
-	if !is_dead: SFX.play()
+	SFX.play()
+	
 	await get_tree().create_timer(0.1).timeout
 	if is_dead:
+		disable()
+		
+		await SFX.finished
 		queue_free()
 	else:
 		SPRITE.modulate = Color.WHITE
@@ -117,3 +121,11 @@ func set_animation_frames(animation_name: StringName) -> void:
 	animation.track_set_key_value(0, 1, 1 + sprite_area)
 	animation.track_set_key_value(0, 2, 2 + sprite_area)
 	animation.track_set_key_value(0, 3, 3 + sprite_area)
+
+
+func disable() -> void:
+	set_process(false)
+	set_physics_process(false)
+	SPRITE.texture = null
+	$CollisionShape3D.disabled = true
+	$HitboxComponent.queue_free()

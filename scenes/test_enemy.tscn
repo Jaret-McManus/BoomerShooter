@@ -125,7 +125,9 @@ DETECT_RAY = NodePath("DetectRay")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectArea"]
 visible = false
 shape = SubResource("SphereShape3D_lkcdx")
+debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="DetectRay" type="RayCast3D" parent="DetectArea"]
 enabled = false
 target_position = Vector3(0, 0, 17)
+debug_shape_custom_color = Color(0, 0, 0, 0)

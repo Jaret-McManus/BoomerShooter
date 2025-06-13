@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwp4f1lsxpo37"]
+
+[ext_resource type="Script" uid="uid://r40wi1hxc3yh" path="res://scripts/projectile.gd" id="1_qp4n5"]
+[ext_resource type="Texture2D" uid="uid://b81vs4qugsrq1" path="res://textures/weapons/projectile.png" id="1_vl370"]
+
+[node name="Projectile" type="Node3D" node_paths=PackedStringArray("collision_ray")]
+script = ExtResource("1_qp4n5")
+collision_ray = NodePath("CollisionRay")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00760497, 0, -0.00576199)
+billboard = 1
+texture_filter = 2
+texture = ExtResource("1_vl370")
+
+[node name="CollisionRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1)
+collide_with_areas = true

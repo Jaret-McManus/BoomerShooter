@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://d14d06akjgjil"]
+[gd_scene load_steps=43 format=4 uid="uid://d14d06akjgjil"]
 
 [ext_resource type="Script" uid="uid://cqlluj3wi52eo" path="res://scripts/level.gd" id="1_j6w7d"]
 [ext_resource type="PackedScene" uid="uid://b6sy1efn0vy1h" path="res://scenes/player.tscn" id="1_paw1w"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cktc7q7stdmq" path="res://models/test_layout_wall_panel.png" id="10_fptmo"]
 [ext_resource type="Texture2D" uid="uid://dy2s8t4umks31" path="res://models/test_layout_limestone_bricks.png" id="11_bakr3"]
 [ext_resource type="Texture2D" uid="uid://cq1tywcts2fcs" path="res://models/test_layout_red_bricks.png" id="12_jqmoj"]
+[ext_resource type="Script" uid="uid://gt18tbqfng8x" path="res://scripts/manager_scripts/projectile_manager.gd" id="14_qs1vn"]
 
 [sub_resource type="Environment" id="Environment_sugp2"]
 background_mode = 1
@@ -536,7 +537,7 @@ data = PackedVector3Array(40.233, -4.724, -1.4477, 43.737, -4.724, 2.8864, 43.73
 script = ExtResource("1_j6w7d")
 
 [node name="Player" parent="." instance=ExtResource("1_paw1w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.31, -1.43986, 10.4382)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.77364, -1.12174, 14.6678)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sugp2")
@@ -552,6 +553,7 @@ script = ExtResource("6_qcd3b")
 COLLECTABLE = ExtResource("7_88ety")
 
 [node name="test_layout" type="Node3D" parent="."]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
 
 [node name="Floor" type="MeshInstance3D" parent="test_layout"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.6106, 2.31699, -9.17151)
@@ -563,6 +565,7 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="test_layout/Floor/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.3034, -5.04308, 0.364256)
 shape = SubResource("BoxShape3D_kpk0m")
+debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="Walls" type="MeshInstance3D" parent="test_layout"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.6106, 0.0116117, -9.17151)
@@ -573,6 +576,7 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="test_layout/Walls/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ni2ok")
+debug_color = Color(0, 0.595, 0.7, 0.298039)
 
 [node name="BackStairs" type="MeshInstance3D" parent="test_layout"]
 transform = Transform3D(0, 0, -0.5, 0, 0.375173, 0, 0.324448, 0, 0, -14.1394, -1.97521, -24.8763)
@@ -583,6 +587,7 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="test_layout/BackStairs/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_hnsbs")
+debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="PrimaryStairs" type="MeshInstance3D" parent="test_layout"]
 transform = Transform3D(-0.40556, 0, -1.62921e-07, 0, 0.375173, 0, 1.32148e-07, 0, -0.5, -7.16404, 1.02479, -9.92559)
@@ -635,10 +640,10 @@ shape = SubResource("ConcavePolygonShape3D_kqfx7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.01711, 0)
 
 [node name="TestEnemy" parent="Enemies" instance=ExtResource("4_x4b8f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.02758, 1.47281, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.02758, 1.47281, -1.6223)
 
 [node name="TestEnemy2" parent="Enemies" instance=ExtResource("4_x4b8f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.18418, 1.47281, 2.88265)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.6084, 1.47281, -1.64533)
 
 [node name="TestEnemy3" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.11742, 1.47281, 4.90083)
@@ -729,3 +734,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5435, 1.47281, -17.2614)
 
 [node name="TestEnemy32" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5435, 1.47281, -26.3183)
+
+[node name="ProjectileManager" type="Node3D" parent="."]
+script = ExtResource("14_qs1vn")

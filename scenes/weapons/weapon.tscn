@@ -1,28 +1,84 @@
-[gd_scene load_steps=7 format=3 uid="uid://clix1dx2c7my4"]
+[gd_scene load_steps=10 format=3 uid="uid://clix1dx2c7my4"]
 
-[ext_resource type="Texture2D" uid="uid://djj146xxbugdq" path="res://textures/weapons/shovel.png" id="1_hloqn"]
-[ext_resource type="Script" uid="uid://bmk3nhwxoy6wk" path="res://scripts/weapons/shovel.gd" id="2_n0nf3"]
+[ext_resource type="Script" uid="uid://cdm7i4daoys2s" path="res://scripts/weapon.gd" id="1_eo7p8"]
+[ext_resource type="Texture2D" uid="uid://djj146xxbugdq" path="res://textures/weapons/shovel.png" id="2_0rtie"]
+[ext_resource type="PackedScene" uid="uid://bwp4f1lsxpo37" path="res://scenes/weapons/projectile.tscn" id="2_4uykt"]
+[ext_resource type="Script" uid="uid://b0lah8dfrfcux" path="res://scripts/component_scripts/sound_component.gd" id="2_eo7p8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n0nf3"]
-size = Vector3(1.37646, 0.95, 2.97693)
+size = Vector3(1.57239, 1.14125, 5.03387)
 
 [sub_resource type="Animation" id="Animation_nr7ly"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
+"values": [Vector3(0.417, -0.1, -0.505)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
 "values": [Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_0rtie"]
+resource_name = "shotgun_fire"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector3(0.417, -0.155, -0.505), Vector3(0.417, -0.1, -0.505)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector3(0, 0, -0.541052), Vector3(0, 0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire_shot"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_n0nf3"]
-resource_name = "attack"
+resource_name = "shovel_swing"
 length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -43,7 +99,7 @@ tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.366667),
+"times": PackedFloat32Array(0, 0.0333333, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
@@ -60,30 +116,35 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nr7ly"]
 _data = {
 &"RESET": SubResource("Animation_nr7ly"),
-&"attack": SubResource("Animation_n0nf3")
+&"shotgun_fire": SubResource("Animation_0rtie"),
+&"shovel_swing": SubResource("Animation_n0nf3")
 }
 
-[node name="Shovel" type="Node3D" node_paths=PackedStringArray("SPRITE", "ANIMATION_PLAYER", "AREA", "COLLISION_RAY")]
-script = ExtResource("2_n0nf3")
-SPRITE = NodePath("ShovelSprite")
+[node name="Weapon" type="Node3D" node_paths=PackedStringArray("ANIMATION_PLAYER", "AREA", "COLLISION_RAY", "SPRITE", "sound_component")]
+script = ExtResource("1_eo7p8")
 ANIMATION_PLAYER = NodePath("AnimationPlayer")
 AREA = NodePath("Area3D")
 COLLISION_RAY = NodePath("CollisionRay")
+SPRITE = NodePath("Sprite")
+sound_component = NodePath("SoundComponent")
+projectile_scene = ExtResource("2_4uykt")
 
-[node name="ShovelSprite" type="Sprite3D" parent="."]
+[node name="Sprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.417, -0.1, -0.505)
 no_depth_test = true
 texture_filter = 0
-texture = ExtResource("1_hloqn")
+texture = ExtResource("2_0rtie")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.188232, 0, -1.41451)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0211803, 0.0956237, -2.44298)
 shape = SubResource("BoxShape3D_n0nf3")
+debug_color = Color(0, 0.306, 0.36, 0.694118)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../ShovelSprite")
+root_node = NodePath("../Sprite")
 libraries = {
 &"": SubResource("AnimationLibrary_nr7ly")
 }
@@ -91,5 +152,21 @@ libraries = {
 [node name="CollisionRay" type="RayCast3D" parent="."]
 transform = Transform3D(0.476837, -0.878992, 0, 0.878992, 0.476837, 0, 0, 0, 1, 0, 0, 0)
 enabled = false
-hit_from_inside = true
 collide_with_areas = true
+
+[node name="ForwardRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1000)
+debug_shape_custom_color = Color(0.6, 0.59, 0, 0)
+debug_shape_thickness = 4
+
+[node name="SoundComponent" type="Node3D" parent="." node_paths=PackedStringArray("SFX")]
+script = ExtResource("2_eo7p8")
+sound_uids = Dictionary[StringName, String]({
+&"shotgun_fire": "uid://dys0ovgiqnos5",
+&"shovel_swing": "uid://bpk1y4pqk158l"
+})
+SFX = NodePath("SFX")
+
+[node name="SFX" type="AudioStreamPlayer3D" parent="SoundComponent"]
+max_db = -1.0
+panning_strength = 0.0
