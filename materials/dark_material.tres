@@ -4,13 +4,10 @@
 
 [resource]
 resource_name = "Material"
-shading_mode = 2
+shading_mode = 0
 diffuse_mode = 1
 specular_mode = 2
 albedo_color = Color(0.906332, 0.906332, 0.906332, 1)
 albedo_texture = ExtResource("1_6epm7")
-roughness = 0.5
-ao_enabled = true
-ao_light_affect = 0.14
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
