@@ -81,7 +81,8 @@ stream = ExtResource("6_jqw88")
 volume_db = -29.754
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, -0.090281, 0.107821, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.090281, 0.107821, 0)
+pixel_size = 0.045
 texture_filter = 0
 texture = ExtResource("2_lkcdx")
 hframes = 8

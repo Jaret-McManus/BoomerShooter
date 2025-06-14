@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
 	if target != null: 
 		move_to_player(delta)
-		look_at_player()
+		look_at_player(delta)
 	else:
 		move_random_direction()
 	move_and_slide()
@@ -59,14 +59,13 @@ func move_to_player(delta: float) -> void:
 	velocity = direction_to_target * SPEED * delta
 
 
-func look_at_player() -> void:
+func look_at_player(delta: float) -> void:
 	var to_target : Vector3 = target.global_transform.origin - global_transform.origin
 	to_target = to_target.normalized()
 	var right : Vector3 = global_transform.basis.x
 	var r_dot : float = to_target.dot(right) # same direction = 1.0, perpendicular = 0.0
 	
-	rotation_degrees.y += ROTATION_SPEED * r_dot * get_physics_process_delta_time()
-	
+	rotation_degrees.y += ROTATION_SPEED * r_dot * delta
 
 
 func apply_gravity(delta: float) -> void:

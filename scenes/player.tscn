@@ -45,7 +45,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546005, 0)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, -0.5)
 
 [node name="Weapon" parent="Head/TiltControl/Camera3D" instance=ExtResource("3_ur7pv")]
-weapon_type = 1
 
 [node name="HtiboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("9_ur7pv")

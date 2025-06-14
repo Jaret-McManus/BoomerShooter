@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://clix1dx2c7my4"]
 
 [ext_resource type="Script" uid="uid://cdm7i4daoys2s" path="res://scripts/weapon.gd" id="1_eo7p8"]
-[ext_resource type="Texture2D" uid="uid://djj146xxbugdq" path="res://textures/weapons/shovel.png" id="2_0rtie"]
 [ext_resource type="PackedScene" uid="uid://bwp4f1lsxpo37" path="res://scenes/weapons/projectile.tscn" id="2_4uykt"]
 [ext_resource type="Script" uid="uid://b0lah8dfrfcux" path="res://scripts/component_scripts/sound_component.gd" id="2_eo7p8"]
+[ext_resource type="Texture2D" uid="uid://bu6w4pblcb4mp" path="res://textures/weapons/newshovel.png" id="3_4uykt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n0nf3"]
 size = Vector3(1, 2, 1)
@@ -20,7 +20,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.417, -0.1, -0.505)]
+"values": [Vector3(0.417, -0.325, -0.75)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -48,7 +48,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Vector3(0.417, -0.155, -0.505), Vector3(0.417, -0.1, -0.505)]
+"values": [Vector3(0.417, -0.285, -0.585), Vector3(0.417, -0.325, -0.75)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -76,7 +76,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Vector3(0, 0, 1.07374), Vector3(0, 0, 0)]
+"values": [Vector3(0, -0.00523599, 1.07338), Vector3(0, 0, 0)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -117,10 +117,11 @@ SPRITE = NodePath("Sprite")
 sound_component = NodePath("SoundComponent")
 
 [node name="Sprite" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.417, -0.1, -0.505)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.417, -0.325, -0.75)
+pixel_size = 0.02
 no_depth_test = true
 texture_filter = 0
-texture = ExtResource("2_0rtie")
+texture = ExtResource("3_4uykt")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 2
@@ -139,6 +140,7 @@ libraries = {
 [node name="CollisionRay" type="RayCast3D" parent="."]
 transform = Transform3D(0.476837, -0.878992, 0, 0.878992, 0.476837, 0, 0, 0, 1, 0, 0, 0)
 enabled = false
+target_position = Vector3(0, 0, 0)
 collide_with_areas = true
 
 [node name="ForwardRay" type="RayCast3D" parent="."]

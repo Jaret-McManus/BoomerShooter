@@ -40,6 +40,8 @@ func _process(delta: float) -> void:
 				damage_dealt = floori(falloff.call(distance, damage))
 			
 			if damage_dealt > 0:
-				collider.take_damage(damage_dealt, knockback_force)
+				collider.take_damage(damage_dealt)
+				#collider.get_parent().velocity = knockback_force
+
 		
 		queue_free()

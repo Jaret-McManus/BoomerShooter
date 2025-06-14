@@ -20,18 +20,34 @@ var attack_range : float = 1.0
 var enemy_targets: Array[Variant] = []
 
 const SPRITES: Dictionary[String, CompressedTexture2D] = {
-	&"shovel": preload("uid://djj146xxbugdq"),
-	&"shotgun": preload("uid://rp4n2y4kf0ss"),
+	&"shovel": preload("uid://bu6w4pblcb4mp"),
+	&"shotgun": preload("uid://bwpcfyjqtco8q"),
 }
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"attack"):
 		attack()
+	if event is InputEventKey and event.is_pressed() and not event.is_echo():
+		const keycode_one : int = 49
+		const keycode_two : int = 50
+		event = event as InputEventKey
+		match event.keycode:
+			keycode_one: set_weapon(&"shovel")
+			keycode_two: set_weapon(&"shotgun")
 
 
 func _ready() -> void:
-	set_weapon(&"shovel")
+	#set_weapon(&"shovel")
+	set_weapon(&"shotgun")
+	
+
+func switch_next() -> void:
+	pass
+
+
+func switch_to_previous() -> void:
+	pass
 
 
 func set_weapon(weapon_name : StringName) -> void:
@@ -39,6 +55,9 @@ func set_weapon(weapon_name : StringName) -> void:
 		&"shovel":
 			weapon_type = WeaponTypes.MELEE
 			SPRITE.texture = SPRITES[&"shovel"]
+			attack_range = 1.5
+			attack_damage = 7
+			knockback_force = Vector3(0.0, 50.0, 0.0)
 			COLLISION_SHAPE.shape.size = Vector3(1.0, 2.0, attack_range)
 			COLLISION_SHAPE.position = Vector3(0.0, 0.0, -(attack_range / 2.0))
 		&"shotgun":
@@ -63,10 +82,7 @@ func attack() -> void:
 
 
 func melee_attack() -> void:
-	match SPRITE.texture:
-		SPRITES[&"shovel"]: 
-			attack_damage = 7
-			knockback_force = Vector3(0.0, 5.0, 0.0)
+	#need to fix this so the target closest to the front of the player is hit
 	
 	var is_valid_hitbox: Callable = func(t: Object) -> bool:
 		return t is HitboxComponent and \
@@ -86,7 +102,9 @@ func melee_attack() -> void:
 		if distance_from_player < last_target_distance: target_to_hit = target
 	
 	if target_to_hit:
-		target_to_hit.take_damage(attack_damage, knockback_force)
+		target_to_hit.take_damage(attack_damage)
+		#target_to_hit.get_parent().velocity.y = knockback_force.y
+
 
 # returns true if the collision ray can hit the target
 func is_visible_hitbox(target: HitboxComponent) -> bool:
@@ -94,6 +112,9 @@ func is_visible_hitbox(target: HitboxComponent) -> bool:
 	COLLISION_RAY.target_position = COLLISION_RAY.to_local(target_origin)
 	
 	if COLLISION_RAY.is_colliding():
+		if sign(COLLISION_RAY.target_position.z) == 1: 
+			# don't hit targets behind player
+			return false
 		var collider: Object = COLLISION_RAY.get_collider()
 		if collider is HitboxComponent:
 			return true
