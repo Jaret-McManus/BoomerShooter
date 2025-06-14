@@ -20,4 +20,3 @@ data_*/
 mono_crash.*.json
 
 # End of https://www.toptal.com/developers/gitignore/api/godot
-*.import
