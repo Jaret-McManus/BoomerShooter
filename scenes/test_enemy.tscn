@@ -104,8 +104,8 @@ aabb = AABB(-0.791313, -0.975697, -0.766522, 1.58263, 1.95139, 1.53304)
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_8c00y")
-MAX_HEALTH = 3
-current_health = 3
+MAX_HEALTH = 30
+current_health = 30
 metadata/_custom_type_script = "uid://cpj7ll4l4jsg3"
 
 [node name="HitboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
@@ -125,7 +125,9 @@ DETECT_RAY = NodePath("DetectRay")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectArea"]
 visible = false
 shape = SubResource("SphereShape3D_lkcdx")
+debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="DetectRay" type="RayCast3D" parent="DetectArea"]
 enabled = false
 target_position = Vector3(0, 0, 17)
+debug_shape_custom_color = Color(0, 0, 0, 0)
