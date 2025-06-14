@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://d14d06akjgjil"]
+[gd_scene load_steps=19 format=4 uid="uid://bc7r0ufec0tax"]
 
 [ext_resource type="Script" uid="uid://cqlluj3wi52eo" path="res://scripts/level.gd" id="1_j6w7d"]
 [ext_resource type="PackedScene" uid="uid://b6sy1efn0vy1h" path="res://scenes/player.tscn" id="1_paw1w"]
@@ -8,13 +8,7 @@
 [ext_resource type="Script" path="res://scripts/component_scripts/collectable_component.gd" id="6_qcd3b"]
 [ext_resource type="Resource" uid="uid://bmcbm76ibno65" path="res://resources/note.tres" id="7_88ety"]
 [ext_resource type="Material" uid="uid://ddw5fqewtwjy6" path="res://materials/dark_material.tres" id="7_ahbqi"]
-[ext_resource type="Texture2D" uid="uid://dc68nbu82u2oy" path="res://models/test_layout_hardwood.png" id="7_kpk0m"]
-[ext_resource type="Texture2D" uid="uid://ci1anb0y7clbc" path="res://models/test_layout_colorful_tiles.png" id="8_qs1vn"]
-[ext_resource type="Texture2D" uid="uid://cj8cfoltx8dwq" path="res://models/test_layout_white_brick.png" id="9_13hs1"]
-[ext_resource type="Texture2D" uid="uid://cktc7q7stdmq" path="res://models/test_layout_wall_panel.png" id="10_fptmo"]
-[ext_resource type="Texture2D" uid="uid://dy2s8t4umks31" path="res://models/test_layout_limestone_bricks.png" id="11_bakr3"]
-[ext_resource type="Texture2D" uid="uid://cq1tywcts2fcs" path="res://models/test_layout_red_bricks.png" id="12_jqmoj"]
-[ext_resource type="Script" uid="uid://gt18tbqfng8x" path="res://scripts/manager_scripts/projectile_manager.gd" id="14_qs1vn"]
+[ext_resource type="Script" uid="uid://gt18tbqfng8x" path="res://scripts/manager_scripts/projectile_manager.gd" id="9_7gix3"]
 
 [sub_resource type="Environment" id="Environment_sugp2"]
 background_mode = 1
@@ -147,92 +141,12 @@ TEXTURE = ExtResource("6_ahbqi")
 script = ExtResource("6_qcd3b")
 COLLECTABLE = ExtResource("7_88ety")
 
-[node name="test_layout" type="Node3D" parent="."]
-transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
-
-[node name="Floor" type="MeshInstance3D" parent="test_layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.6106, 2.31699, -9.17151)
-mesh = SubResource("ArrayMesh_vgkif")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="test_layout/Floor"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="test_layout/Floor/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.3034, -5.04308, 0.364256)
-shape = SubResource("BoxShape3D_kpk0m")
-debug_color = Color(0, 0.595, 0.7, 0)
-
-[node name="Walls" type="MeshInstance3D" parent="test_layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.6106, 0.0116117, -9.17151)
-mesh = SubResource("ArrayMesh_gihnw")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="test_layout/Walls"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="test_layout/Walls/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_ni2ok")
-debug_color = Color(0, 0.595, 0.7, 0.298039)
-
-[node name="BackStairs" type="MeshInstance3D" parent="test_layout"]
-transform = Transform3D(0, 0, -0.5, 0, 0.375173, 0, 0.324448, 0, 0, -14.1394, -1.97521, -24.8763)
-mesh = SubResource("ArrayMesh_utgt0")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="test_layout/BackStairs"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="test_layout/BackStairs/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_hnsbs")
-debug_color = Color(0, 0.595, 0.7, 0)
-
-[node name="PrimaryStairs" type="MeshInstance3D" parent="test_layout"]
-transform = Transform3D(-0.40556, 0, -1.62921e-07, 0, 0.375173, 0, 1.32148e-07, 0, -0.5, -7.16404, 1.02479, -9.92559)
-mesh = SubResource("ArrayMesh_vs877")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="test_layout/PrimaryStairs"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="test_layout/PrimaryStairs/StaticBody3D"]
-transform = Transform3D(1, 0, -8.52651e-14, 0, 1, 0, 0, 0, 1, 0.313629, 0, 2.4169)
-shape = SubResource("BoxShape3D_rv6en")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="test_layout/PrimaryStairs/StaticBody3D"]
-transform = Transform3D(1, 0, -8.52651e-14, 0, 1, 0, 0, 0, 1, -9.72298, -2.77971, 3.44521)
-shape = SubResource("BoxShape3D_rv6en")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="test_layout/PrimaryStairs/StaticBody3D"]
-transform = Transform3D(1, 2.4885e-07, 8.63578e-08, -2.4885e-07, 0.785025, 0.619464, 8.63593e-08, -0.619464, 0.785025, -11.1664, -6.30578, -3.08735)
-shape = SubResource("BoxShape3D_rv6en")
-
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="test_layout/PrimaryStairs/StaticBody3D"]
-transform = Transform3D(4.26479e-08, -0.619464, 0.785025, -2.4885e-07, 0.785025, 0.619464, -1, -1.98377e-07, -1.02211e-07, -7.1156, -3.58446, 4.14375)
-shape = SubResource("BoxShape3D_rv6en")
-
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="test_layout/PrimaryStairs/StaticBody3D"]
-transform = Transform3D(-1, -8.66089e-08, -7.62528e-08, -1.81389e-07, 0.873815, 0.486259, 3.56114e-08, 0.486259, -0.873815, 0.19788, 0.272852, -0.183413)
-shape = SubResource("BoxShape3D_rv6en")
-
-[node name="Walls_001" type="MeshInstance3D" parent="test_layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.6106, 4.71276, -9.17151)
-mesh = SubResource("ArrayMesh_kwyk2")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="test_layout/Walls_001"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="test_layout/Walls_001/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_tugu3")
-
-[node name="Floor_001" type="MeshInstance3D" parent="test_layout"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.6106, 7.01814, -9.17151)
-mesh = SubResource("ArrayMesh_0y4rj")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="test_layout/Floor_001"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="test_layout/Floor_001/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_kqfx7")
-
 [node name="Enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.01711, 0)
 
 [node name="TestEnemy" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.327967, 3.26227, -8.15073)
+
+[node name="ProjectileManager" type="Node3D" parent="."]
+script = ExtResource("9_7gix3")
+metadata/_custom_type_script = "uid://gt18tbqfng8x"
