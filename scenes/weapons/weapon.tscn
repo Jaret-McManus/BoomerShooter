@@ -162,7 +162,7 @@ debug_shape_thickness = 4
 [node name="SoundComponent" type="Node3D" parent="." node_paths=PackedStringArray("SFX")]
 script = ExtResource("2_eo7p8")
 sound_uids = Dictionary[StringName, String]({
-&"shotgun_fire": "uid://dys0ovgiqnos5",
+&"shotgun_fire": "uid://dys0ovgiqnos6",
 &"shovel_swing": "uid://bpk1y4pqk158l"
 })
 SFX = NodePath("SFX")
