@@ -14,5 +14,5 @@ texture_filter = 2
 texture = ExtResource("1_vl370")
 
 [node name="CollisionRay" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -5)
 collide_with_areas = true

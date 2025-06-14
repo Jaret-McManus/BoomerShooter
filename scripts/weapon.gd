@@ -26,7 +26,6 @@ const SPRITES: Dictionary[String, CompressedTexture2D] = {
 func _ready() -> void:
 	SPRITE.texture = SPRITES["shotgun"]
 	#SPRITE.texture = SPRITES["shovel"]
-	
 
 
 func _input(event: InputEvent) -> void:
@@ -93,15 +92,44 @@ func fire_shot() -> void:
 
 
 func fire_shotgun() -> void:
-	var projectile: Projectile = projectile_scene.instantiate()
-	Global.projectile_manager.add_projectile(projectile)
+	const NUM_PELLETS: int = 12
+	const SPEED: float = 90
+	const LIFETIME: float = 1
+	const DAMAGE: float = 5
+	const SPREAD: float = deg_to_rad(4)
 	
-	var speed: float = 10
-	var lifetime: float = 5
-	var damage: float = 10
+	var FALLOFF: Callable = func(dist: float, damage: int) -> float: 
+		var falloff_start: float = 5
+		var falloff_end: float = 25
+		if dist < falloff_start: return damage
+		
+		return clamp(
+			damage - (damage / (falloff_end - falloff_start)) * (dist - falloff_start), 
+			0, 
+			damage
+		) 
 	
-	projectile.initialize(
-		speed, lifetime, damage, self.global_position, self.global_basis
-	)	
+	for i in NUM_PELLETS:
+		var projectile: Projectile = projectile_scene.instantiate()
+		Global.projectile_manager.add_projectile(projectile)
+		
+		# add spread in circle
+		var offset_basis: Basis = Basis(global_basis)
+		
+		# get uniform random point in circle with polar coords  
+		var r: float = SPREAD * sqrt(randf())
+		var theta: float = randf() * 2 * PI
+		
+		# convert to cartesian
+		var spread_x: float = r * cos(theta)
+		var spread_y: float = r * sin(theta)
+		
+		offset_basis = offset_basis.rotated(global_basis.x, spread_x)
+		offset_basis = offset_basis.rotated(global_basis.y, spread_y)
+		
+		
+		projectile.initialize(
+			SPEED, LIFETIME, DAMAGE, self.global_position, offset_basis, FALLOFF
+		)	
 	
 		
