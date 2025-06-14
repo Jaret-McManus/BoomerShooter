@@ -1,32 +1,31 @@
 class_name Player
 extends CharacterBody3D
 
-@warning_ignore("unused_signal")
-signal damage_taken(amount: int)
-@warning_ignore("unused_signal")
-signal healed(amount: int)
-
-# Movement variables
-var BASE_SPEED: float = 15.0
-var BASE_ACCELERATION: float = 4 * BASE_SPEED
-var BASE_DECELERATION: float = 11 * BASE_SPEED
-var AIR_ACC_MULTIPLIER: float = 0.7
-var DIR_CHANGE_ACC_MULT: float = 1.2
-const JUMP_VELOCITY: float = 13.0
-var FALLING_GRAVITY_MULT: float = 1.2
-var RESPAWN_HEIGHT: float = -45.0
-
-# Camera variables
-var SENSITIVITY: float = 0.0020
-var CAMERA_TILT: float = deg_to_rad(1)
-var BASE_FOV := 75.0
-var TOP_FOV := BASE_FOV * 1.05
-var FOV_WEIGHT := 10.0
+#signal damage_taken(amount: int)
+#signal healed(amount: int)
 
 @export var head: Node3D
 @export var camera: Camera3D
 @export var tilt_control: Node3D
 @export var SFX : AudioStreamPlayer3D
+
+# Movement variables
+const JUMP_VELOCITY: float = 13.0
+const BASE_SPEED: float = 15.0
+const BASE_ACCELERATION: float = 4 * BASE_SPEED
+const BASE_DECELERATION: float = 11 * BASE_SPEED
+const AIR_ACC_MULTIPLIER: float = 0.7
+const DIR_CHANGE_ACC_MULT: float = 1.2
+const FALLING_GRAVITY_MULT: float = 1.2
+const RESPAWN_HEIGHT: float = -45.0
+
+# Camera variables
+const SENSITIVITY: float = 0.0020
+const CAMERA_TILT: float = deg_to_rad(1)
+const BASE_FOV := 75.0
+const TOP_FOV := BASE_FOV * 1.05
+const FOV_WEIGHT := 10.0
+
 
 func _on_died() -> void:
 	pass

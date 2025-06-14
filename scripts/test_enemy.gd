@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-const SPEED := 5.0
+const SPEED := 55.0
 const JUMP_VELOCITY := 4.5
 const ROTATION_SPEED := 110.0
 
@@ -9,7 +9,7 @@ const ROTATION_SPEED := 110.0
 @export var SFX : AudioStreamPlayer3D
 
 var target : Player = null
-var current_sprite_direction : int = 0
+var current_sprite_direction : int = 0 # 0 is facing the player
 var is_freed: bool = false
 
 func _on_player_spotted() -> void:
@@ -42,9 +42,21 @@ func _physics_process(delta: float) -> void:
 	bilboard_sprite()
 	set_sprite_direction()
 	apply_gravity(delta)
-	if target != null: look_at_player()
-	move_random_direction()
+	if target != null: 
+		move_to_player(delta)
+		look_at_player()
+	else:
+		move_random_direction()
 	move_and_slide()
+
+
+func move_to_player(delta: float) -> void:
+	if current_sprite_direction != 0: 
+		velocity.x = move_toward(velocity.x, 0, delta)
+		velocity.z = move_toward(velocity.z, 0, delta)
+		return
+	var direction_to_target := (target.position - global_position).normalized()
+	velocity = direction_to_target * SPEED * delta
 
 
 func look_at_player() -> void:

@@ -21,7 +21,6 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 radius = 0.501949
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "camera", "tilt_control", "SFX")]
-collision_layer = 0
 script = ExtResource("1_qhqgy")
 head = NodePath("Head")
 camera = NodePath("Head/TiltControl/Camera3D")
@@ -46,6 +45,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.546005, 0)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, -0.5)
 
 [node name="Weapon" parent="Head/TiltControl/Camera3D" instance=ExtResource("3_ur7pv")]
+weapon_type = 1
 
 [node name="HtiboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
 script = ExtResource("9_ur7pv")

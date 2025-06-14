@@ -5,12 +5,18 @@ extends Node3D
 
 var speed: float
 var damage: float
+var knockback_force : Vector3
 var init_position: Vector3
 var falloff: Callable
 
-func initialize(param_speed: float, param_lifetime: float, param_damage: float, param_pos: Vector3, param_basis: Basis, param_falloff: Callable = Callable() ) -> void:
+func initialize(
+	param_speed: float, param_lifetime: float, 
+	param_damage: float, param_knockback: Vector3,
+	param_pos: Vector3, param_basis: Basis, 
+	param_falloff: Callable = Callable() ) -> void:
 	self.speed = param_speed
 	self.damage = param_damage
+	self.knockback_force = param_knockback
 	self.position = param_pos
 	self.init_position = param_pos
 	self.global_basis = param_basis
@@ -34,6 +40,6 @@ func _process(delta: float) -> void:
 				damage_dealt = floori(falloff.call(distance, damage))
 			
 			if damage_dealt > 0:
-				collider.take_damage(damage_dealt)
+				collider.take_damage(damage_dealt, knockback_force)
 		
 		queue_free()
