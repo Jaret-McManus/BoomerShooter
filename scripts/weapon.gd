@@ -132,7 +132,7 @@ func fire_shot() -> void:
 
 func fire_shotgun() -> void:
 	const NUM_PELLETS: int = 12
-	const SPEED: float = 60
+	const SPEED: float = 90
 	const LIFETIME: float = 1
 	const DAMAGE: float = 3
 	const KNOCKBACK_FORCE: Vector3 = Vector3(0.0, 0.5, 0.0)

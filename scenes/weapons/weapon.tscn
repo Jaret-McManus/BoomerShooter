@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://clix1dx2c7my4"]
+[gd_scene load_steps=11 format=3 uid="uid://clix1dx2c7my4"]
 
 [ext_resource type="Script" uid="uid://cdm7i4daoys2s" path="res://scripts/weapon.gd" id="1_eo7p8"]
 [ext_resource type="PackedScene" uid="uid://bwp4f1lsxpo37" path="res://scenes/weapons/projectile.tscn" id="2_4uykt"]
 [ext_resource type="Script" uid="uid://b0lah8dfrfcux" path="res://scripts/component_scripts/sound_component.gd" id="2_eo7p8"]
-[ext_resource type="Texture2D" uid="uid://bu6w4pblcb4mp" path="res://textures/weapons/newshovel.png" id="3_4uykt"]
+[ext_resource type="Texture2D" uid="uid://bwpcfyjqtco8q" path="res://textures/weapons/newshotgun.png" id="3_b37ah"]
+[ext_resource type="Texture2D" uid="uid://n1linkecdcfx" path="res://textures/weapons/sg_muzzle_flash.png" id="4_anm00"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n0nf3"]
 size = Vector3(1, 2, 1)
@@ -61,6 +62,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector3(0, 0, -0.541052), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FlashSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_n0nf3"]
@@ -121,7 +134,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.417, -0.325, -0.75)
 pixel_size = 0.02
 no_depth_test = true
 texture_filter = 0
-texture = ExtResource("3_4uykt")
+texture = ExtResource("3_b37ah")
+
+[node name="FlashSprite" type="Sprite3D" parent="Sprite"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0116848)
+visible = false
+pixel_size = 0.02
+double_sided = false
+no_depth_test = true
+texture_filter = 0
+texture = ExtResource("4_anm00")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 2

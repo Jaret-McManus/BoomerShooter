@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwpcfyjqtco8q"
-path="res://.godot/imported/newshotgun.png-2fb8d48b00eafa87e6ab51a314e5f377.ctex"
+uid="uid://n1linkecdcfx"
+path="res://.godot/imported/sg_muzzle_flash.png-68d7acf05faf862a0da33d93b53dba19.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/weapons/newshotgun.png"
-dest_files=["res://.godot/imported/newshotgun.png-2fb8d48b00eafa87e6ab51a314e5f377.ctex"]
+source_file="res://textures/weapons/sg_muzzle_flash.png"
+dest_files=["res://.godot/imported/sg_muzzle_flash.png-68d7acf05faf862a0da33d93b53dba19.ctex"]
 
 [params]
 
