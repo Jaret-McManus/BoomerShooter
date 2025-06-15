@@ -7,7 +7,7 @@ const NOTE_SCREEN : PackedScene = preload("res://scenes/note_screen.tscn")
 
 
 func _ready() -> void:
-	Global.screen_manager = self
+	GlobalNodes.screen_manager = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 

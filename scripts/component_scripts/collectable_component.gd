@@ -12,7 +12,7 @@ enum Types {NOTE, POTION, WEAPON, AMMO}
 func _on_collected() -> void:
 	match COLLECTABLE_TYPE:
 		Types.NOTE: 
-			Global.screen_manager.show_note(COLLECTABLE.text)
+			GlobalNodes.screen_manager.show_note(COLLECTABLE.text)
 			get_parent().queue_free()
 		Types.POTION: pass
 		Types.WEAPON: pass

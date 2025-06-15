@@ -30,7 +30,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if DETECT_RAY.enabled == false: return
 	
-	var head_origin: Vector3 = Global.player.head.global_transform.origin
+	var head_origin: Vector3 = GlobalNodes.player.head.global_transform.origin
 	DETECT_RAY.look_at(head_origin)
 	
 	#DETECT_RAY.rotation *= -1

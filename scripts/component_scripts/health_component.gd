@@ -16,7 +16,7 @@ func heal(amount: int) -> void:
 	current_health += amount
 	if current_health > MAX_HEALTH: current_health = MAX_HEALTH
 	if get_parent() is Player:
-		Global.gui_manager.set_health(current_health)
+		GlobalNodes.gui_manager.set_health(current_health)
 
 
 func take_damage(amount: int) -> void:
@@ -28,4 +28,4 @@ func take_damage(amount: int) -> void:
 	damage_taken.emit(STUN_TIME, is_dead)
 
 	if get_parent() is Player:
-		Global.gui_manager.set_health(current_health)
+		GlobalNodes.gui_manager.set_health(current_health)

@@ -151,7 +151,7 @@ func fire_shotgun() -> void:
 	
 	for i in NUM_PELLETS:
 		var projectile: Projectile = projectile_scene.instantiate()
-		Global.projectile_manager.add_projectile(projectile)
+		GlobalNodes.projectile_manager.add_projectile(projectile)
 		
 		# add spread in circle
 		var offset_basis: Basis = Basis(global_basis)

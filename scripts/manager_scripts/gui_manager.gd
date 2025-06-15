@@ -10,7 +10,7 @@ extends CanvasLayer
 
 func _ready() -> void:
 	#there's probably a better way to do this
-	Global.gui_manager = self
+	GlobalNodes.gui_manager = self
 
 func set_health(health: int) -> void:
 	health_label.text = str(health)

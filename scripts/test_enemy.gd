@@ -13,7 +13,7 @@ var current_sprite_direction : int = 0 # 0 is facing the player
 var is_freed: bool = false
 
 func _on_player_spotted() -> void:
-	target = Global.player
+	target = GlobalNodes.player
 
 
 func _on_player_unspotted() -> void:
@@ -70,7 +70,7 @@ func look_at_player(delta: float) -> void:
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
-		velocity += Global.GRAVITY * delta
+		velocity += GlobalVar.GRAVITY * delta
 
 
 func move_random_direction() -> void:
@@ -94,9 +94,9 @@ func move_random_direction() -> void:
 func bilboard_sprite() -> void:
 	#set the sprite to look at the player
 	SPRITE.look_at(Vector3(
-		Global.player.global_transform.origin.x, 
+		GlobalNodes.player.global_transform.origin.x, 
 		SPRITE.global_transform.origin.y, #this line keeps the sprite's y-rotation
-		Global.player.global_transform.origin.z
+		GlobalNodes.player.global_transform.origin.z
 	))
 	SPRITE.rotation_degrees.y += 180
 
