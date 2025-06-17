@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 const SPEED := 55.0
 const JUMP_VELOCITY := 4.5
-const ROTATION_SPEED := 110.0
+const ROTATION_SPEED := 150.0
 
 @export var ANIMATION_PLAYER : AnimationPlayer
 @export var SPRITE : Sprite3D
@@ -43,20 +43,11 @@ func _physics_process(delta: float) -> void:
 	set_sprite_direction()
 	apply_gravity(delta)
 	if target != null: 
-		move_to_player(delta)
+		#move_to_player(delta)
 		look_at_player(delta)
 	else:
 		move_random_direction()
-	move_and_slide()
-
-
-func move_to_player(delta: float) -> void:
-	if current_sprite_direction != 0: 
-		velocity.x = move_toward(velocity.x, 0, delta)
-		velocity.z = move_toward(velocity.z, 0, delta)
-		return
-	var direction_to_target := (target.position - global_position).normalized()
-	velocity = direction_to_target * SPEED * delta
+	move_and_slide()	
 
 
 func look_at_player(delta: float) -> void:
@@ -86,8 +77,8 @@ func move_random_direction() -> void:
 		else:
 			velocity.z -= 3
 	else:
-		velocity *= 0.8
-
+		velocity *= 0.8	
+	
 
 #custom bilboard function to give us access to the 
 #sprite rotation for 8-directional animation

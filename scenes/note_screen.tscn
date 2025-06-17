@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://vski7cydgp2p"]
 
-[ext_resource type="Script" uid="uid://6xrkjl1yukm0" path="res://scripts/note_screen.gd" id="1_4086n"]
+[ext_resource type="Script" path="res://scripts/note_screen.gd" id="1_4086n"]
 
 [node name="NoteScreen" type="ColorRect" node_paths=PackedStringArray("NOTE_LABEL")]
 anchors_preset = 15

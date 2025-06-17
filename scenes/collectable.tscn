@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://yuksubdd6cnt"]
 
-[ext_resource type="Script" uid="uid://bobignoswe2w6" path="res://scripts/collectable.gd" id="1_llfh3"]
+[ext_resource type="Script" path="res://scripts/collectable.gd" id="1_llfh3"]
 [ext_resource type="Texture2D" uid="uid://biwljvjkx8h53" path="res://textures/collectables/note.png" id="1_ti8a4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_llfh3"]

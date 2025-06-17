@@ -44,6 +44,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	Debug.update_debug(&"health", $HealthComponent.current_health)
 	if self.position.y < RESPAWN_HEIGHT:
 		self.position = Vector3(0, 1, 0)
 		head.rotation.y = 0
