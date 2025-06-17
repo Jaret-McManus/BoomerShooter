@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c08qcm5drvgqp"]
+[gd_scene load_steps=17 format=3 uid="uid://c08qcm5drvgqp"]
 
 [ext_resource type="Script" uid="uid://cd3odxkjvfuew" path="res://scripts/test_enemy.gd" id="1_mkyue"]
 [ext_resource type="Texture2D" uid="uid://dncjnr24af1j0" path="res://textures/enemies/8dir_placeholder.png" id="2_lkcdx"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://dws1aq5nu2h0w" path="res://scripts/states/enemy/enemy_state_machine.gd" id="7_t46gg"]
 [ext_resource type="Script" uid="uid://cltyspx502fe2" path="res://scripts/states/enemy/enemy_idling.gd" id="8_t46gg"]
 [ext_resource type="Script" uid="uid://dxbaiavwkmvqq" path="res://scripts/states/enemy/enemy_following.gd" id="9_dddk1"]
-[ext_resource type="Script" uid="uid://c2pb3auupa7xm" path="res://scripts/states/enemy/enemy_attacking.gd" id="10_vp4s7"]
 
 [sub_resource type="Animation" id="Animation_8c00y"]
 length = 0.001
@@ -75,8 +74,6 @@ height = 2.06226
 radius = 17.0
 
 [node name="TestEnemy" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATION_PLAYER", "SPRITE", "SFX")]
-collision_layer = 4
-collision_mask = 7
 script = ExtResource("1_mkyue")
 ANIMATION_PLAYER = NodePath("AnimationPlayer")
 SPRITE = NodePath("Sprite3D")
@@ -125,7 +122,7 @@ shape = SubResource("CapsuleShape3D_8c00y")
 debug_color = Color(0.996928, 0, 0.176858, 0.42)
 
 [node name="DetectArea" type="Area3D" parent="." node_paths=PackedStringArray("DETECT_RAY")]
-collision_layer = 4
+collision_layer = 2
 script = ExtResource("5_8c00y")
 DETECT_RAY = NodePath("DetectRay")
 
@@ -137,12 +134,10 @@ debug_color = Color(0, 0.595, 0.7, 0)
 [node name="DetectRay" type="RayCast3D" parent="DetectArea"]
 enabled = false
 target_position = Vector3(0, 0, 17)
-collision_mask = 3
 debug_shape_custom_color = Color(0, 0, 0, 0)
 
-[node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("enemy", "initial_state")]
+[node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("7_t46gg")
-enemy = NodePath("..")
 initial_state = NodePath("Idling")
 metadata/_custom_type_script = "uid://davdnjgjqdakh"
 
@@ -150,12 +145,6 @@ metadata/_custom_type_script = "uid://davdnjgjqdakh"
 script = ExtResource("8_t46gg")
 metadata/_custom_type_script = "uid://7fgtxhgik310"
 
-[node name="Following" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("DETECT_RAY")]
+[node name="Following" type="Node" parent="EnemyStateMachine"]
 script = ExtResource("9_dddk1")
-DETECT_RAY = NodePath("../../DetectArea/DetectRay")
-metadata/_custom_type_script = "uid://dujbopjc5nrej"
-
-[node name="Attacking" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("DETECT_RAY")]
-script = ExtResource("10_vp4s7")
-DETECT_RAY = NodePath("../../DetectArea/DetectRay")
 metadata/_custom_type_script = "uid://dujbopjc5nrej"
