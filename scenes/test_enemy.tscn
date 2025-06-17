@@ -155,7 +155,12 @@ script = ExtResource("9_dddk1")
 DETECT_RAY = NodePath("../../DetectArea/DetectRay")
 metadata/_custom_type_script = "uid://dujbopjc5nrej"
 
-[node name="Attacking" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("DETECT_RAY")]
+[node name="Attacking" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("WINDUP_TIMER", "HEALTH_COMPONENT", "DETECT_RAY")]
 script = ExtResource("10_vp4s7")
+WINDUP_TIMER = NodePath("WindupTimer")
+HEALTH_COMPONENT = NodePath("../../HealthComponent")
 DETECT_RAY = NodePath("../../DetectArea/DetectRay")
 metadata/_custom_type_script = "uid://dujbopjc5nrej"
+
+[node name="WindupTimer" type="Timer" parent="EnemyStateMachine/Attacking"]
+one_shot = true

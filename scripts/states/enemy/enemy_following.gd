@@ -9,8 +9,7 @@ func physics_process(delta: float) -> void:
 		transition.emit(&"Idling")
 		return
 	
-	var detect_ray_len: float = (DETECT_RAY.get_collision_point() - enemy.global_position).length()
-	if detect_ray_len <= ATTACK_RANGE:
+	if get_detect_ray_len() <= ATTACK_RANGE:
 		transition.emit(&"Attacking")
 		return
 	

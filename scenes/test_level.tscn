@@ -1,7 +1,8 @@
-[gd_scene load_steps=119 format=4 uid="uid://bc7r0ufec0tax"]
+[gd_scene load_steps=120 format=4 uid="uid://bc7r0ufec0tax"]
 
 [ext_resource type="Script" uid="uid://cqlluj3wi52eo" path="res://scripts/level.gd" id="1_j6w7d"]
 [ext_resource type="PackedScene" uid="uid://b6sy1efn0vy1h" path="res://scenes/player.tscn" id="1_paw1w"]
+[ext_resource type="Script" uid="uid://ymw12p3073cc" path="res://scripts/player.gd" id="3_4asn1"]
 [ext_resource type="PackedScene" uid="uid://c08qcm5drvgqp" path="res://scenes/test_enemy.tscn" id="4_x4b8f"]
 [ext_resource type="PackedScene" uid="uid://yuksubdd6cnt" path="res://scenes/collectable.tscn" id="5_tmr53"]
 [ext_resource type="Texture2D" uid="uid://biwljvjkx8h53" path="res://textures/collectables/note.png" id="6_ahbqi"]
@@ -1151,8 +1152,13 @@ shadow_mesh = SubResource("ArrayMesh_jo04c")
 [node name="TestLevel" type="Node3D"]
 script = ExtResource("1_j6w7d")
 
-[node name="Player" parent="." instance=ExtResource("1_paw1w")]
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("head", "camera", "tilt_control", "SFX") instance=ExtResource("1_paw1w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5426, 0.0180128, -34.3565)
+script = ExtResource("3_4asn1")
+head = NodePath("Head")
+camera = NodePath("Head/TiltControl/Camera3D")
+tilt_control = NodePath("Head/TiltControl")
+SFX = NodePath("SoundComponent/SFX")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sugp2")
@@ -1378,135 +1384,223 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.01711, 0)
 
 [node name="TestEnemy" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.1493, 3.26227, -37.1747)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy2" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.43025, 3.26227, -9.01571)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy3" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.18761, 3.26227, -5.2826)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy4" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7636, 3.26227, -10.2155)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy5" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0326, 3.26227, -8.32953)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy6" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.31259, 3.26227, -8.32953)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy7" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7645, 3.26227, -13.6999)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy8" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.6039, 3.26227, -16.7262)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy9" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.6918, 3.26227, -16.5235)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy10" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.9181, 3.26227, -16.9952)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy11" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.3004, 3.26227, -12.7569)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy12" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0024, 3.26227, -14.4285)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy13" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0024, 3.26227, -7.96683)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy14" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.409, 3.26227, -4.67154)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy15" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.5343, 3.26227, -5.98643)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy16" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.1421, 3.26227, -5.35602)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy17" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8742, 3.26227, -7.72729)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy18" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.4132, 3.26227, -11.0537)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy19" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.6251, 3.26227, -7.49184)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy20" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.9057, 3.26227, -8.69993)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy21" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.8316, 3.26227, -15.9655)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy22" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4523, 3.26227, -14.3688)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy23" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.1431, 3.26227, -12.6064)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy24" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.1431, 3.26227, -22.9465)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy25" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.62575, 3.26227, -12.8423)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy26" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.30615, 3.26227, -8.93743)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy27" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.9929, 3.26227, -8.93743)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy28" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.9929, 3.26227, -5.71863)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy29" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8735, 3.26227, -14.553)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy30" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8735, 3.26227, -10.0557)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy31" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.638, 3.26227, -15.5392)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy33" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.7904, 3.26227, -15.3212)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy34" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.2971, 3.26227, -7.13104)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy35" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.9101, 3.26227, -11.1916)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy36" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.599, 3.26227, -12.4045)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy32" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.638, 3.26227, -5.41376)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy37" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.99005, 3.26227, -32.2093)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy38" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3103, 3.26227, -27.712)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy39" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0748, 3.26227, -33.1955)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy40" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.2272, 3.26227, -32.9776)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy41" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7339, 3.26227, -24.7874)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy42" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.3468, 3.26227, -28.848)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy43" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0358, 3.26227, -30.0609)
+collision_layer = 1
+collision_mask = 1
 
 [node name="TestEnemy44" parent="Enemies" instance=ExtResource("4_x4b8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0748, 3.26227, -23.0701)
+collision_layer = 1
+collision_mask = 1
 
 [node name="ProjectileManager" type="Node3D" parent="."]
 script = ExtResource("9_7gix3")
